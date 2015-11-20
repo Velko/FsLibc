@@ -74,4 +74,31 @@ SUITE(MemSet)
         CHECK_ARRAY_EQUAL(expected, testArray, TESTARRAY_SIZE);
         CHECK_EQUAL(testArray+9, r);
     }
+    
+    TEST_FIXTURE(MemsetFixture, Set42Aligned8Bytes)
+    {
+        void *r = fslc_memset(testArray+8, 42, 8);
+        memset(expected+8, 42, 8);
+        
+        CHECK_ARRAY_EQUAL(expected, testArray, TESTARRAY_SIZE);
+        CHECK_EQUAL(testArray+8, r);
+    }
+    
+    TEST_FIXTURE(MemsetFixture, SetMultiByteAligned8Bytes)
+    {
+        void *r = fslc_memset(testArray+8, 0x4266, 8);
+        memset(expected+8, 0x4266, 8);
+        
+        CHECK_ARRAY_EQUAL(expected, testArray, TESTARRAY_SIZE);
+        CHECK_EQUAL(testArray+8, r);
+    }
+    
+    TEST_FIXTURE(MemsetFixture, SetMultiByteOffset1Both10Bytes)
+    {        
+        void *r = fslc_memset(testArray+7, 0x4266, 10);
+        memset(expected+7, 0x4266, 10);
+        
+        CHECK_ARRAY_EQUAL(expected, testArray, TESTARRAY_SIZE);
+        CHECK_EQUAL(testArray+7, r);
+    }
 }
