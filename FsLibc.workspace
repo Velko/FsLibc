@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Workspace Name="FsLibc" Database="">
+  <Project Name="Libc" Path="libc/Libc.project" Active="No"/>
+  <Project Name="Tests" Path="tests/Tests.project" Active="Yes"/>
+  <BuildMatrix>
+    <WorkspaceConfiguration Name="Debug" Selected="yes">
+      <Project Name="Libc" ConfigName="Debug"/>
+      <Project Name="Tests" ConfigName="Debug"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="Release" Selected="yes">
+      <Project Name="Libc" ConfigName="Release"/>
+      <Project Name="Tests" ConfigName="Release"/>
+    </WorkspaceConfiguration>
+  </BuildMatrix>
+</CodeLite_Workspace>
