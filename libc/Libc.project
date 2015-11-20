@@ -3,8 +3,10 @@
   <Description/>
   <Dependencies/>
   <VirtualDirectory Name="src">
+    <File Name="src/fslc_memset.c"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
+    <File Name="include/fslc_string.h"/>
   </VirtualDirectory>
   <Settings Type="Static Library">
     <GlobalSettings>

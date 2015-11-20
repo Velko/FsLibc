@@ -4,6 +4,7 @@
   <Dependencies/>
   <VirtualDirectory Name="src">
     <File Name="main.cpp"/>
+    <File Name="memset_tests.cpp"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>
