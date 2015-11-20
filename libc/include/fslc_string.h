@@ -5,6 +5,7 @@
 
 #ifndef ALT_FSLC_NAMES
 #define fslc_memset     memset
+#define fslc_memcpy     memcpy
 #endif /* ALT_FSLC_NAMES */
 
 #ifdef __cplusplus
@@ -12,6 +13,7 @@ extern "C" {
 #endif /* __cplusplus */
 
     void *fslc_memset(void *ptr, int value, size_t num);
+    void *fslc_memcpy(void *dest, const void *src, size_t len);
 
 #ifdef __cplusplus
 } /* extern "C" */
