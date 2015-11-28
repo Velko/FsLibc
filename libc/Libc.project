@@ -7,9 +7,13 @@
     <File Name="src/fslc_memcpy.c"/>
     <File Name="src/fslc_memmove.c"/>
     <File Name="src/fslc_memcmp.c"/>
+    <File Name="src/fslc_stdout.c"/>
+    <File Name="src/fslc_fputc.c"/>
+    <File Name="src/fslc_putchar.c"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
     <File Name="include/fslc_string.h"/>
+    <File Name="include/fslc_stdio.h"/>
   </VirtualDirectory>
   <Settings Type="Static Library">
     <GlobalSettings>
