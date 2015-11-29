@@ -7,6 +7,8 @@
 #define fslc_stdout     stdout
 #define fslc_putchar    putchar
 #define fslc_fputc      fputc
+#define fslc_fputs      fputs
+#define fslc_puts       puts
 
 #endif /* ALT_FSLC_NAMES */
 
@@ -28,6 +30,8 @@ extern "C" {
 
     int fslc_putchar(int c);
     int fslc_fputc(int c, FSLC_FILE *stream);
+    int fslc_fputs(const char *str, FSLC_FILE *stream);
+    int fslc_puts(const char *str);
 
 #ifdef __cplusplus
 } /* extern "C" */

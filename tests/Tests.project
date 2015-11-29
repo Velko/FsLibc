@@ -10,6 +10,7 @@
     <File Name="memcmp_tests.cpp"/>
     <File Name="putc_tests.cpp"/>
     <File Name="stdio_fixture.cpp"/>
+    <File Name="puts_tests.cpp"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>

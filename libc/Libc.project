@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CodeLite_Project Name="Libc" InternalType="Library">
+<CodeLite_Project Name="Libc" InternalType="UnitTest++">
   <Description/>
   <Dependencies/>
   <VirtualDirectory Name="src">
@@ -10,6 +10,9 @@
     <File Name="src/fslc_stdout.c"/>
     <File Name="src/fslc_fputc.c"/>
     <File Name="src/fslc_putchar.c"/>
+    <File Name="src/fslc_fputs_impl.c"/>
+    <File Name="src/fslc_fputs.c"/>
+    <File Name="src/fslc_puts.c"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
     <File Name="include/fslc_string.h"/>
