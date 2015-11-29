@@ -64,4 +64,30 @@ SUITE(PutC)
         CHECK_EQUAL(sizeof(expected)/sizeof(FuncCallItem), FuncCallLog.size());
         CHECK_ARRAY_EQUAL(expected, FuncCallLog, FuncCallLog.size());
     }
+    
+    TEST_FIXTURE(StdIOFixture, EofFPutCTest)
+    {
+        eof_counter = 0;
+        int r = fslc_fputc('A', &stream);
+        
+        FuncCallItem expected[] = { { CalledFunc::PutC, 'A' } };
+        
+        CHECK(r < 0);
+        CHECK_EQUAL(sizeof(expected)/sizeof(FuncCallItem), FuncCallLog.size());
+        CHECK_ARRAY_EQUAL(expected, FuncCallLog, FuncCallLog.size());
+    }
+    
+    TEST_FIXTURE(StdIOFixture, EofPrePostOpFPutCTest)
+    {
+        eof_counter = 0;
+        stream.pre_output = fixture_preop;
+        stream.post_output = fixture_postop;
+        int r = fslc_fputc('E', &stream);
+        
+        FuncCallItem expected[] = { { CalledFunc::PreOp, 0 }, { CalledFunc::PutC, 'E' }, { CalledFunc::PostOp, 0 } };
+        
+        CHECK(r < 0);
+        CHECK_EQUAL(sizeof(expected)/sizeof(FuncCallItem), FuncCallLog.size());
+        CHECK_ARRAY_EQUAL(expected, FuncCallLog, FuncCallLog.size());
+    }
 }

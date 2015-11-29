@@ -6,7 +6,8 @@ StdIOFixture::StdIOFixture()
 {
     memset(&stream, 0, sizeof(FSLC_FILE));
     stream.user_ptr = this;
-    stream.putc = fixture_putc;        
+    stream.putc = fixture_putc;
+    eof_counter = -1; // default value = forever
 }
 
 int StdIOFixture::fixture_putc(int c, FSLC_FILE *stream)
@@ -20,7 +21,13 @@ int StdIOFixture::fixture_putc(int c, FSLC_FILE *stream)
     
     pf->FuncCallLog.push_back(call);
     
-    return c;
+    if (pf->eof_counter)
+    {
+        --pf->eof_counter;
+        return c;
+    }
+    else
+        return -1;
 }
 
 void StdIOFixture::fixture_preop(FSLC_FILE *stream)

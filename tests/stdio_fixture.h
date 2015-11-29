@@ -25,6 +25,8 @@ struct StdIOFixture
 
     std::vector<FuncCallItem> FuncCallLog;
     
+    int eof_counter;
+    
     StdIOFixture();
     
     static int fixture_putc(int c, FSLC_FILE *stream);
