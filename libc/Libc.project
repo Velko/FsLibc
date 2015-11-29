@@ -13,6 +13,10 @@
     <File Name="src/fslc_fputs_impl.c"/>
     <File Name="src/fslc_fputs.c"/>
     <File Name="src/fslc_puts.c"/>
+    <File Name="src/fslc_printf.c"/>
+    <File Name="src/fslc_fprintf.c"/>
+    <File Name="src/fslc_vprintf.c"/>
+    <File Name="src/fslc_vfprintf.c"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
     <File Name="include/fslc_string.h"/>
