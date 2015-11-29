@@ -11,8 +11,8 @@ SUITE(PutC)
         FuncCallItem expected[] = { { CalledFunc::PutC, 'A' } };
         
         CHECK_EQUAL('A', r);
-        CHECK_EQUAL(1, FuncCallLog.size());
-        CHECK_ARRAY_EQUAL(expected, FuncCallLog, 1);
+        CHECK_EQUAL(sizeof(expected)/sizeof(FuncCallItem), FuncCallLog.size());
+        CHECK_ARRAY_EQUAL(expected, FuncCallLog, FuncCallLog.size());
     }
     
     TEST_FIXTURE(StdIOFixture, BasicPutCharTest)
@@ -24,8 +24,8 @@ SUITE(PutC)
         FuncCallItem expected[] = { { CalledFunc::PutC, 'B' } };
         
         CHECK_EQUAL('B', r);
-        CHECK_EQUAL(1, FuncCallLog.size());
-        CHECK_ARRAY_EQUAL(expected, FuncCallLog, 1);
+        CHECK_EQUAL(sizeof(expected)/sizeof(FuncCallItem), FuncCallLog.size());
+        CHECK_ARRAY_EQUAL(expected, FuncCallLog, FuncCallLog.size());
     }
     
     TEST_FIXTURE(StdIOFixture, PreOpFPutCTest)
@@ -36,8 +36,8 @@ SUITE(PutC)
         FuncCallItem expected[] = { { CalledFunc::PreOp, 0 }, { CalledFunc::PutC, 'C' } };
         
         CHECK_EQUAL('C', r);
-        CHECK_EQUAL(2, FuncCallLog.size());
-        CHECK_ARRAY_EQUAL(expected, FuncCallLog, 2);
+        CHECK_EQUAL(sizeof(expected)/sizeof(FuncCallItem), FuncCallLog.size());
+        CHECK_ARRAY_EQUAL(expected, FuncCallLog, FuncCallLog.size());
     }
     
     TEST_FIXTURE(StdIOFixture, PostpFPutCTest)
@@ -48,8 +48,8 @@ SUITE(PutC)
         FuncCallItem expected[] = { { CalledFunc::PutC, 'D' }, { CalledFunc::PostOp, 0 } };
         
         CHECK_EQUAL('D', r);
-        CHECK_EQUAL(2, FuncCallLog.size());
-        CHECK_ARRAY_EQUAL(expected, FuncCallLog, 2);
+        CHECK_EQUAL(sizeof(expected)/sizeof(FuncCallItem), FuncCallLog.size());
+        CHECK_ARRAY_EQUAL(expected, FuncCallLog, FuncCallLog.size());
     }
     
     TEST_FIXTURE(StdIOFixture, PrePostOpFPutCTest)
@@ -61,7 +61,7 @@ SUITE(PutC)
         FuncCallItem expected[] = { { CalledFunc::PreOp, 0 }, { CalledFunc::PutC, 'E' }, { CalledFunc::PostOp, 0 } };
         
         CHECK_EQUAL('E', r);
-        CHECK_EQUAL(3, FuncCallLog.size());
-        CHECK_ARRAY_EQUAL(expected, FuncCallLog, 3);
+        CHECK_EQUAL(sizeof(expected)/sizeof(FuncCallItem), FuncCallLog.size());
+        CHECK_ARRAY_EQUAL(expected, FuncCallLog, FuncCallLog.size());
     }
 }
