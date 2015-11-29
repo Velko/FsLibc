@@ -9,6 +9,7 @@
     <File Name="memmove_tests.cpp"/>
     <File Name="memcmp_tests.cpp"/>
     <File Name="putc_tests.cpp"/>
+    <File Name="stdio_fixture.cpp"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>
@@ -105,4 +106,7 @@
       </Completion>
     </Configuration>
   </Settings>
+  <VirtualDirectory Name="include">
+    <File Name="stdio_fixture.h"/>
+  </VirtualDirectory>
 </CodeLite_Project>
