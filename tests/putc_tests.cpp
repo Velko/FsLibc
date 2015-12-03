@@ -13,6 +13,7 @@ SUITE(PutC)
         CHECK_EQUAL('A', r);
         CHECK_EQUAL(sizeof(expected)/sizeof(FuncCallItem), FuncCallLog.size());
         CHECK_ARRAY_EQUAL(expected, FuncCallLog, FuncCallLog.size());
+        CHECK_EQUAL("A", ostring.str());
     }
     
     TEST_FIXTURE(StdIOFixture, BasicPutCharTest)
@@ -26,6 +27,7 @@ SUITE(PutC)
         CHECK_EQUAL('B', r);
         CHECK_EQUAL(sizeof(expected)/sizeof(FuncCallItem), FuncCallLog.size());
         CHECK_ARRAY_EQUAL(expected, FuncCallLog, FuncCallLog.size());
+        CHECK_EQUAL("B", ostring.str());
     }
     
     TEST_FIXTURE(StdIOFixture, PreOpFPutCTest)
@@ -38,6 +40,7 @@ SUITE(PutC)
         CHECK_EQUAL('C', r);
         CHECK_EQUAL(sizeof(expected)/sizeof(FuncCallItem), FuncCallLog.size());
         CHECK_ARRAY_EQUAL(expected, FuncCallLog, FuncCallLog.size());
+        CHECK_EQUAL("C", ostring.str());
     }
     
     TEST_FIXTURE(StdIOFixture, PostpFPutCTest)
@@ -50,6 +53,7 @@ SUITE(PutC)
         CHECK_EQUAL('D', r);
         CHECK_EQUAL(sizeof(expected)/sizeof(FuncCallItem), FuncCallLog.size());
         CHECK_ARRAY_EQUAL(expected, FuncCallLog, FuncCallLog.size());
+        CHECK_EQUAL("D", ostring.str());
     }
     
     TEST_FIXTURE(StdIOFixture, PrePostOpFPutCTest)
@@ -63,6 +67,7 @@ SUITE(PutC)
         CHECK_EQUAL('E', r);
         CHECK_EQUAL(sizeof(expected)/sizeof(FuncCallItem), FuncCallLog.size());
         CHECK_ARRAY_EQUAL(expected, FuncCallLog, FuncCallLog.size());
+        CHECK_EQUAL("E", ostring.str());
     }
     
     TEST_FIXTURE(StdIOFixture, EofFPutCTest)
@@ -75,6 +80,7 @@ SUITE(PutC)
         CHECK(r < 0);
         CHECK_EQUAL(sizeof(expected)/sizeof(FuncCallItem), FuncCallLog.size());
         CHECK_ARRAY_EQUAL(expected, FuncCallLog, FuncCallLog.size());
+        CHECK_EQUAL("", ostring.str());
     }
     
     TEST_FIXTURE(StdIOFixture, EofPrePostOpFPutCTest)
@@ -89,5 +95,6 @@ SUITE(PutC)
         CHECK(r < 0);
         CHECK_EQUAL(sizeof(expected)/sizeof(FuncCallItem), FuncCallLog.size());
         CHECK_ARRAY_EQUAL(expected, FuncCallLog, FuncCallLog.size());
+        CHECK_EQUAL("", ostring.str());
     }
 }

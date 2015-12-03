@@ -16,6 +16,7 @@ SUITE(PutS)
         CHECK(r >= 0);
         CHECK_EQUAL(sizeof(expected)/sizeof(FuncCallItem), FuncCallLog.size());
         CHECK_ARRAY_EQUAL(expected, FuncCallLog, FuncCallLog.size());
+        CHECK_EQUAL("ABCD", ostring.str());
     }
     
     TEST_FIXTURE(StdIOFixture, BasicPutSTest)
@@ -33,6 +34,7 @@ SUITE(PutS)
         CHECK(r >= 0);
         CHECK_EQUAL(sizeof(expected)/sizeof(FuncCallItem), FuncCallLog.size());
         CHECK_ARRAY_EQUAL(expected, FuncCallLog, FuncCallLog.size());
+        CHECK_EQUAL("ABCD\n", ostring.str());
     }
     
     TEST_FIXTURE(StdIOFixture, PrePostOpFPutSTest)
@@ -52,6 +54,7 @@ SUITE(PutS)
         CHECK(r >= 0);
         CHECK_EQUAL(sizeof(expected)/sizeof(FuncCallItem), FuncCallLog.size());
         CHECK_ARRAY_EQUAL(expected, FuncCallLog, FuncCallLog.size());
+        CHECK_EQUAL("ABCD", ostring.str());
     }
     
     TEST_FIXTURE(StdIOFixture, PrePostOpPutSTest)
@@ -73,6 +76,7 @@ SUITE(PutS)
         CHECK(r >= 0);
         CHECK_EQUAL(sizeof(expected)/sizeof(FuncCallItem), FuncCallLog.size());
         CHECK_ARRAY_EQUAL(expected, FuncCallLog, FuncCallLog.size());
+        CHECK_EQUAL("ABCD\n", ostring.str());
     }
     
     TEST_FIXTURE(StdIOFixture, Eof2FPutSTest)
@@ -87,6 +91,7 @@ SUITE(PutS)
         CHECK(r < 0);
         CHECK_EQUAL(sizeof(expected)/sizeof(FuncCallItem), FuncCallLog.size());
         CHECK_ARRAY_EQUAL(expected, FuncCallLog, FuncCallLog.size());
+        CHECK_EQUAL("AB", ostring.str());
     }
     
     TEST_FIXTURE(StdIOFixture, EofPrePostOpFPutSTest)
@@ -106,6 +111,7 @@ SUITE(PutS)
         CHECK(r < 0);
         CHECK_EQUAL(sizeof(expected)/sizeof(FuncCallItem), FuncCallLog.size());
         CHECK_ARRAY_EQUAL(expected, FuncCallLog, FuncCallLog.size());
+        CHECK_EQUAL("AB", ostring.str());
     }
     
     TEST_FIXTURE(StdIOFixture, EofPrePostOpPutSEarlyTest)
@@ -126,6 +132,7 @@ SUITE(PutS)
         CHECK(r < 0);
         CHECK_EQUAL(sizeof(expected)/sizeof(FuncCallItem), FuncCallLog.size());
         CHECK_ARRAY_EQUAL(expected, FuncCallLog, FuncCallLog.size());
+        CHECK_EQUAL("AB", ostring.str());
     }
     
     TEST_FIXTURE(StdIOFixture, EofPrePostOpPutSLastTest)
@@ -148,5 +155,6 @@ SUITE(PutS)
         CHECK(r < 0);
         CHECK_EQUAL(sizeof(expected)/sizeof(FuncCallItem), FuncCallLog.size());
         CHECK_ARRAY_EQUAL(expected, FuncCallLog, FuncCallLog.size());
+        CHECK_EQUAL("ABCD", ostring.str());
     }
 }

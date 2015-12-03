@@ -24,6 +24,7 @@ int StdIOFixture::fixture_putc(int c, FSLC_FILE *stream)
     if (pf->eof_counter)
     {
         --pf->eof_counter;
+        pf->ostring << (char)c;
         return c;
     }
     else

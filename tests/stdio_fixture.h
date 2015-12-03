@@ -6,6 +6,7 @@
 
 #include <vector>
 #include <iostream>
+#include <sstream>
 
 struct StdIOFixture
 {
@@ -26,6 +27,7 @@ struct StdIOFixture
     std::vector<FuncCallItem> FuncCallLog;
     
     int eof_counter;
+    std::ostringstream ostring;
     
     StdIOFixture();
     
