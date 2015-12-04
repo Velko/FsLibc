@@ -66,4 +66,30 @@ SUITE(PrintF)
         CHECK_EQUAL(expected_str, ostring.str());
         CHECK_EQUAL(ostring.str().size(), r);
     }
+    
+    TEST_FIXTURE(StdIOFixture, PrintFPrePostMultiEofTest)
+    {
+        stream.pre_output = fixture_preop;
+        stream.post_output = fixture_postop;
+        
+        eof_counter = 20;
+        
+        int r = fslc_fprintf(&stream, "Testing %s%% of all possibilities%c", "a few ", '!');
+        
+        const char *expected_str = "Testing a few % of a";
+        //                          12345678901234567890
+        
+        std::vector<FuncCallItem> expected_calls;
+        expected_calls.push_back({ CalledFunc::PreOp, 0 });
+        for (const char *c = expected_str; *c; ++c)
+            expected_calls.push_back({ CalledFunc::PutC, *c });
+        expected_calls.push_back({ CalledFunc::PutC, 'l' }); // EOF
+        expected_calls.push_back({ CalledFunc::PostOp, 0 });
+
+        CHECK(r < 0);
+        CHECK_EQUAL(expected_calls.size(), FuncCallLog.size());
+        CHECK_ARRAY_EQUAL(expected_calls, FuncCallLog, FuncCallLog.size());
+        
+        CHECK_EQUAL(expected_str, ostring.str());
+    }
 }

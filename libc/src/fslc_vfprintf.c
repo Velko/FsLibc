@@ -2,13 +2,11 @@
 
 int _fslc_fputs_impl(const char *str, FSLC_FILE *stream);
 
-int fslc_vfprintf(FSLC_FILE *stream, const char *format, va_list arg)
+static int _fslc_vfprintf_impl(FSLC_FILE *stream, const char *format, va_list arg)
 {
     int res = 0;
     int pr;
     const char *c;
-    
-    if (fslc_stdout->pre_output) fslc_stdout->pre_output(fslc_stdout);
     
     for (c = format; *c; ++c)
     {
@@ -41,6 +39,15 @@ int fslc_vfprintf(FSLC_FILE *stream, const char *format, va_list arg)
             ++res;
         }
     }
+    
+    return res;
+}
+
+int fslc_vfprintf(FSLC_FILE *stream, const char *format, va_list arg)
+{
+    if (fslc_stdout->pre_output) fslc_stdout->pre_output(fslc_stdout);
+    
+    int res = _fslc_vfprintf_impl(stream, format, arg);
     
     if (fslc_stdout->post_output) fslc_stdout->post_output(fslc_stdout);
     
