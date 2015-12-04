@@ -111,4 +111,7 @@
   <VirtualDirectory Name="include">
     <File Name="stdio_fixture.h"/>
   </VirtualDirectory>
+  <Dependencies Name="Debug">
+    <Project Name="Libc"/>
+  </Dependencies>
 </CodeLite_Project>
