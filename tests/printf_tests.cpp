@@ -92,4 +92,31 @@ SUITE(PrintF)
         
         CHECK_EQUAL(expected_str, ostring.str());
     }
+    
+    TEST_FIXTURE(StdIOFixture, PrintFBasicIntTest)
+    {
+        int r = fslc_fprintf(&stream, "The answer is %d!", 42);
+        
+        CHECK(r >= 0);
+        CHECK_EQUAL("The answer is 42!", ostring.str());
+        CHECK_EQUAL(ostring.str().size(), r);
+    }
+    
+    TEST_FIXTURE(StdIOFixture, PrintFZeroIntTest)
+    {
+        int r = fslc_fprintf(&stream, "Zero is %d!", 0);
+        
+        CHECK(r >= 0);
+        CHECK_EQUAL("Zero is 0!", ostring.str());
+        CHECK_EQUAL(ostring.str().size(), r);
+    }
+    
+    TEST_FIXTURE(StdIOFixture, PrintFUIntMaxTest)
+    {
+        int r = fslc_fprintf(&stream, "Max uint is %u\n", -1);
+        
+        CHECK(r >= 0);
+        CHECK_EQUAL("Max uint is 4294967295\n", ostring.str());
+        CHECK_EQUAL(ostring.str().size(), r);
+    }
 }
