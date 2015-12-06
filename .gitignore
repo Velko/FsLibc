@@ -2,6 +2,7 @@
 .codelite
 Debug/
 Release/
+cov_report/
 /Makefile
 *.mk
 *.txt
