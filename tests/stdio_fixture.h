@@ -7,6 +7,7 @@
 #include <vector>
 #include <iostream>
 #include <sstream>
+#include <memory>
 
 struct StdIOFixture
 {
@@ -28,6 +29,10 @@ struct StdIOFixture
     
     int eof_counter;
     std::ostringstream ostring;
+
+    std::unique_ptr<char> expected_fstring;
+    
+    int eprintf(const char *format, ...);
     
     StdIOFixture();
     

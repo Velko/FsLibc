@@ -1,6 +1,8 @@
 #include "stdio_fixture.h"
 
 #include <string.h>
+#include <stdarg.h>
+#include <stdio.h>
 
 StdIOFixture::StdIOFixture()
 {
@@ -53,6 +55,24 @@ void StdIOFixture::fixture_postop(FSLC_FILE *stream)
     call.param1 = 0;
     
     pf->FuncCallLog.push_back(call);
+}
+
+int StdIOFixture::eprintf(const char *format, ...)
+{
+    va_list args;
+
+    va_start(args, format);
+    int len = vsnprintf(nullptr, 0, format, args);
+    va_end(args);
+
+    expected_fstring = std::unique_ptr<char>(new char[len+1]);
+    char *str = expected_fstring.get();
+    
+    va_start(args, format);
+    vsprintf(str, format, args);
+    va_end(args);
+    
+    return len;
 }
 
 std::ostream &operator<< (std::ostream &stream, const StdIOFixture::FuncCallItem &citem)
