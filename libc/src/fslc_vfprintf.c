@@ -47,6 +47,8 @@ int _fslc_put_hex_ll(unsigned long long v, FSLC_FILE *stream, char alpha);
 
 #endif
 
+#define FLAG_LONG       1
+#define FLAG_VERYLONG   3
 
 static int _fslc_vfprintf_impl(FSLC_FILE *stream, const char *format, va_list arg)
 {
@@ -58,51 +60,88 @@ static int _fslc_vfprintf_impl(FSLC_FILE *stream, const char *format, va_list ar
     {
         if (*c == '%')
         {
-            ++c;
-            switch (*c)
+            int flags = 0;
+            
+            for (;;) 
             {
-                case 's':
-                    pr = _fslc_fputs_impl(va_arg(arg, const char *), stream);
-                    if (pr < 0) return pr;
-                    res += pr;
-                    break;
+                ++c;
+                switch (*c)
+                {
+                    case 's':
+                        pr = _fslc_fputs_impl(va_arg(arg, const char *), stream);
+                        if (pr < 0) return pr;
+                        res += pr;
+                        break;
 
-                case 'c':
-                    pr = stream->putc(va_arg(arg, int), stream);
-                    if (pr < 0) return pr;
-                    ++res;
-                    break;
+                    case 'c':
+                        pr = stream->putc(va_arg(arg, int), stream);
+                        if (pr < 0) return pr;
+                        ++res;
+                        break;
+                        
+                    case '%':
+                        pr = stream->putc('%', stream);
+                        if (pr < 0) return pr;
+                        ++res;
+                        break;
                     
-                case '%':
-                    pr = stream->putc('%', stream);
-                    if (pr < 0) return pr;
-                    ++res;
-                    break;
-                
-                case 'i':
-                case 'd':
-                    pr = _fslc_put_sint_l(va_arg(arg, signed int), stream);
-                    if (pr < 0) return pr;
-                    res += pr;
-                    break;
-                
-                case 'u':
-                    pr = _fslc_put_uint_l(va_arg(arg, unsigned int), stream);
-                    if (pr < 0) return pr;
-                    res += pr;
-                    break;
-                
-                case 'x':
-                    pr = _fslc_put_hex_l(va_arg(arg, unsigned int), stream, 'a');
-                    if (pr < 0) return pr;
-                    res += pr;
-                    break;
-                
-                case 'X':
-                    pr = _fslc_put_hex_l(va_arg(arg, unsigned int), stream, 'A');
-                    if (pr < 0) return pr;
-                    res += pr;
-                    break;
+                    case 'i':
+                    case 'd':
+                        if (flags & FLAG_VERYLONG == FLAG_VERYLONG)
+                            pr = _fslc_put_sint_ll(va_arg(arg, signed long long), stream);
+                        else if (flags & FLAG_LONG)
+                            pr = _fslc_put_sint_l(va_arg(arg, signed long), stream);
+                        else
+                            pr = _fslc_put_sint_l(va_arg(arg, signed int), stream);
+                        
+                        if (pr < 0) return pr;
+                        res += pr;
+                        break;
+                    
+                    case 'u':
+                        if (flags & FLAG_VERYLONG == FLAG_VERYLONG)
+                            pr = _fslc_put_uint_l(va_arg(arg, unsigned long long), stream);
+                        else if (flags & FLAG_LONG)
+                            pr = _fslc_put_uint_l(va_arg(arg, unsigned long), stream);
+                        else
+                            pr = _fslc_put_uint_l(va_arg(arg, unsigned int), stream);
+                        
+                        if (pr < 0) return pr;
+                        res += pr;
+                        break;
+                    
+                    case 'x':
+                        if (flags & FLAG_VERYLONG == FLAG_VERYLONG)
+                            pr = _fslc_put_hex_ll(va_arg(arg, unsigned long long), stream, 'a');
+                        else if (flags & FLAG_LONG)
+                            pr = _fslc_put_hex_l(va_arg(arg, unsigned long), stream, 'a');
+                        else
+                            pr = _fslc_put_hex_l(va_arg(arg, unsigned int), stream, 'a');
+                        
+                        if (pr < 0) return pr;
+                        res += pr;
+                        break;
+                    
+                    case 'X':
+                        if (flags & FLAG_VERYLONG == FLAG_VERYLONG)
+                            pr = _fslc_put_hex_ll(va_arg(arg, unsigned long long), stream, 'A');
+                        else if (flags & FLAG_LONG)
+                            pr = _fslc_put_hex_l(va_arg(arg, unsigned long), stream, 'A');
+                        else
+                            pr = _fslc_put_hex_l(va_arg(arg, unsigned int), stream, 'A');
+                        
+                        if (pr < 0) return pr;
+                        res += pr;
+                        break;
+                        
+                    case 'l':
+                        if (flags & FLAG_LONG) 
+                            flags |= FLAG_VERYLONG;
+                        else
+                            flags |= FLAG_LONG;
+                        continue;
+                }
+                break;
             }
         } else {
             pr = stream->putc(*c, stream);
