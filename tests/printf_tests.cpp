@@ -111,6 +111,15 @@ SUITE(PrintF)
         CHECK_EQUAL(ostring.str().size(), r);
     }
     
+    TEST_FIXTURE(StdIOFixture, PrintFNegativeTest)
+    {
+        int r = fslc_fprintf(&stream, "Less than zero: %d!", -54);
+        
+        CHECK(r >= 0);
+        CHECK_EQUAL("Less than zero: -54!", ostring.str());
+        CHECK_EQUAL(ostring.str().size(), r);
+    }
+    
     TEST_FIXTURE(StdIOFixture, PrintFUIntMaxTest)
     {
         int r = fslc_fprintf(&stream, "Max uint is %u\n", -1);
