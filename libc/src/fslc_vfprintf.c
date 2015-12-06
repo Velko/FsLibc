@@ -87,7 +87,7 @@ static int _fslc_vfprintf_impl(FSLC_FILE *stream, const char *format, va_list ar
                     
                     case 'i':
                     case 'd':
-                        if (flags & FLAG_VERYLONG == FLAG_VERYLONG)
+                        if ((flags & FLAG_VERYLONG) == FLAG_VERYLONG)
                             pr = _fslc_put_sint_ll(va_arg(arg, signed long long), stream);
                         else if (flags & FLAG_LONG)
                             pr = _fslc_put_sint_l(va_arg(arg, signed long), stream);
@@ -99,8 +99,8 @@ static int _fslc_vfprintf_impl(FSLC_FILE *stream, const char *format, va_list ar
                         break;
                     
                     case 'u':
-                        if (flags & FLAG_VERYLONG == FLAG_VERYLONG)
-                            pr = _fslc_put_uint_l(va_arg(arg, unsigned long long), stream);
+                        if ((flags & FLAG_VERYLONG) == FLAG_VERYLONG)
+                            pr = _fslc_put_uint_ll(va_arg(arg, unsigned long long), stream);
                         else if (flags & FLAG_LONG)
                             pr = _fslc_put_uint_l(va_arg(arg, unsigned long), stream);
                         else
@@ -111,7 +111,7 @@ static int _fslc_vfprintf_impl(FSLC_FILE *stream, const char *format, va_list ar
                         break;
                     
                     case 'x':
-                        if (flags & FLAG_VERYLONG == FLAG_VERYLONG)
+                        if ((flags & FLAG_VERYLONG) == FLAG_VERYLONG)
                             pr = _fslc_put_hex_ll(va_arg(arg, unsigned long long), stream, 'a');
                         else if (flags & FLAG_LONG)
                             pr = _fslc_put_hex_l(va_arg(arg, unsigned long), stream, 'a');
@@ -123,7 +123,7 @@ static int _fslc_vfprintf_impl(FSLC_FILE *stream, const char *format, va_list ar
                         break;
                     
                     case 'X':
-                        if (flags & FLAG_VERYLONG == FLAG_VERYLONG)
+                        if ((flags & FLAG_VERYLONG) == FLAG_VERYLONG)
                             pr = _fslc_put_hex_ll(va_arg(arg, unsigned long long), stream, 'A');
                         else if (flags & FLAG_LONG)
                             pr = _fslc_put_hex_l(va_arg(arg, unsigned long), stream, 'A');
@@ -245,7 +245,7 @@ int _fslc_put_uint_ll(unsigned long long v, FSLC_FILE *stream)
     return _fslc_fputs_impl(p, stream);
 }
 
-int _fslc_put_hex_l(unsigned long long v, FSLC_FILE *stream, char alpha)
+int _fslc_put_hex_ll(unsigned long long v, FSLC_FILE *stream, char alpha)
 {
     char dbuff[BUFSIZE_LONG_LONG_HEX+1], *p;
 
