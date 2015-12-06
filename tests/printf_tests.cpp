@@ -128,4 +128,40 @@ SUITE(PrintF)
         CHECK_EQUAL("Max uint is 4294967295\n", ostring.str());
         CHECK_EQUAL(ostring.str().size(), r);
     }
+    
+    TEST_FIXTURE(StdIOFixture, PrintFBasicHexTest)
+    {
+        int r = fslc_fprintf(&stream, "The answer is %x!", 0x74df);
+        
+        CHECK(r >= 0);
+        CHECK_EQUAL("The answer is 74df!", ostring.str());
+        CHECK_EQUAL(ostring.str().size(), r);
+    }
+    
+    TEST_FIXTURE(StdIOFixture, PrintFBasicUpperHexTest)
+    {
+        int r = fslc_fprintf(&stream, "The answer is %X!", 0x74df);
+        
+        CHECK(r >= 0);
+        CHECK_EQUAL("The answer is 74DF!", ostring.str());
+        CHECK_EQUAL(ostring.str().size(), r);
+    }
+    
+    TEST_FIXTURE(StdIOFixture, PrintFZeroHexTest)
+    {
+        int r = fslc_fprintf(&stream, "Zero is %x!", 0);
+        
+        CHECK(r >= 0);
+        CHECK_EQUAL("Zero is 0!", ostring.str());
+        CHECK_EQUAL(ostring.str().size(), r);
+    }
+    
+    TEST_FIXTURE(StdIOFixture, PrintFUHExMaxTest)
+    {
+        int r = fslc_fprintf(&stream, "Max hex is %x\n", -1);
+        
+        CHECK(r >= 0);
+        CHECK_EQUAL("Max hex is ffffffff\n", ostring.str());
+        CHECK_EQUAL(ostring.str().size(), r);
+    }
 }

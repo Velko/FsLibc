@@ -3,6 +3,7 @@
 int _fslc_fputs_impl(const char *str, FSLC_FILE *stream);
 int _fslc_put_sint_l(signed long v, FSLC_FILE *stream);
 int _fslc_put_uint_l(unsigned long v, FSLC_FILE *stream);
+int _fslc_put_hex_l(unsigned long v, FSLC_FILE *stream, char alpha);
 
 /* There are some considerations when formatting Integers for output:
  *     - on 32-bit systems integers will mostly be 32 bits long, except when one REALLY
@@ -28,17 +29,21 @@ int _fslc_put_uint_l(unsigned long v, FSLC_FILE *stream);
  */
 
 #define BUFSIZE_LONG_LONG_DECIMAL   20
+#define BUFSIZE_LONG_HEX            (__SIZEOF_LONG__ * 2)
+#define BUFSIZE_LONG_LONG_HEX       (__SIZEOF_LONG_LONG__ * 2)
 #if __SIZEOF_LONG__ == 4
 
 #define BUFSIZE_LONG_DECIMAL    10
 int _fslc_put_sint_ll(signed long long v, FSLC_FILE *stream);
 int _fslc_put_uint_ll(unsigned long long v, FSLC_FILE *stream);
+int _fslc_put_hex_ll(unsigned long long v, FSLC_FILE *stream, char alpha);
 
 #elif __SIZEOF_LONG__ == 8
 
 #define BUFSIZE_LONG_DECIMAL    BUFSIZE_LONG_LONG_DECIMAL
 #define _fslc_put_sint_ll   _fslc_put_sint_l
 #define _fslc_put_uint_ll   _fslc_put_uint_l
+#define _fslc_put_hex_ll    _fslc_put_hex_l
 
 #endif
 
@@ -85,7 +90,20 @@ static int _fslc_vfprintf_impl(FSLC_FILE *stream, const char *format, va_list ar
                     pr = _fslc_put_uint_l(va_arg(arg, unsigned int), stream);
                     if (pr < 0) return pr;
                     res += pr;
-                    break;            }
+                    break;
+                
+                case 'x':
+                    pr = _fslc_put_hex_l(va_arg(arg, unsigned int), stream, 'a');
+                    if (pr < 0) return pr;
+                    res += pr;
+                    break;
+                
+                case 'X':
+                    pr = _fslc_put_hex_l(va_arg(arg, unsigned int), stream, 'A');
+                    if (pr < 0) return pr;
+                    res += pr;
+                    break;
+            }
         } else {
             pr = stream->putc(*c, stream);
             if (pr < 0) return pr;
@@ -138,6 +156,23 @@ int _fslc_put_uint_l(unsigned long v, FSLC_FILE *stream)
     return _fslc_fputs_impl(p, stream);
 }
 
+int _fslc_put_hex_l(unsigned long v, FSLC_FILE *stream, char alpha)
+{
+    char dbuff[BUFSIZE_LONG_HEX+1], *p;
+
+    dbuff[BUFSIZE_LONG_HEX] = 0;
+
+    for (p = dbuff + BUFSIZE_LONG_HEX; v ; v >>= 4)
+    {
+        char digit = (v & 0xF);
+        *(--p) = digit < 10 ? digit + '0' : digit - 10 + alpha;
+    }
+
+    if (*p == 0) *(--p) = '0';
+
+    return _fslc_fputs_impl(p, stream);
+}
+
 #if __SIZEOF_LONG__ == 4
 
 int _fslc_put_sint_ll(signed long long v, FSLC_FILE *stream)
@@ -164,6 +199,23 @@ int _fslc_put_uint_ll(unsigned long long v, FSLC_FILE *stream)
     for (p = dbuff + BUFSIZE_LONG_LONG_DECIMAL; v ; v /= 10)
     {
         *(--p) = (v % 10) + '0';
+    }
+
+    if (*p == 0) *(--p) = '0';
+
+    return _fslc_fputs_impl(p, stream);
+}
+
+int _fslc_put_hex_l(unsigned long long v, FSLC_FILE *stream, char alpha)
+{
+    char dbuff[BUFSIZE_LONG_LONG_HEX+1], *p;
+
+    dbuff[BUFSIZE_LONG_LONG_HEX] = 0;
+
+    for (p = dbuff + BUFSIZE_LONG_LONG_HEX; v ; v >>= 4)
+    {
+        char digit = (v & 0xF);
+        *(--p) = digit < 10 ? digit + '0' : digit - 10 + alpha;
     }
 
     if (*p == 0) *(--p) = '0';
