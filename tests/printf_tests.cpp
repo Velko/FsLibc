@@ -164,4 +164,114 @@ SUITE(PrintF)
         CHECK_EQUAL("Max hex is ffffffff\n", ostring.str());
         CHECK_EQUAL(ostring.str().size(), r);
     }
+    
+    TEST_FIXTURE(StdIOFixture, PrintFLongIntTest)
+    {
+        int r = fslc_fprintf(&stream, "The answer is %ld!", 435434432L);
+        
+        int e = eprintf("The answer is %ld!", 435434432L);
+        
+        CHECK_EQUAL(e, r);
+        CHECK_EQUAL(expected_fstring.get(), ostring.str());
+        CHECK_EQUAL(ostring.str().size(), r);
+    }
+    
+    TEST_FIXTURE(StdIOFixture, PrintFLongNegativeTest)
+    {
+        int r = fslc_fprintf(&stream, "Less than zero: %ld!", -57299223L);
+        
+        int e = eprintf("Less than zero: %ld!", -57299223L);
+        
+        CHECK_EQUAL(e, r);
+        CHECK_EQUAL(expected_fstring.get(), ostring.str());
+        CHECK_EQUAL(ostring.str().size(), r);
+    }
+    
+    TEST_FIXTURE(StdIOFixture, PrintFULongMaxTest)
+    {
+        int r = fslc_fprintf(&stream, "Max ulong is %lu\n", -1L);
+        
+        int e = eprintf("Max ulong is %lu\n", -1L);
+        
+        CHECK_EQUAL(e, r);
+        CHECK_EQUAL(expected_fstring.get(), ostring.str());
+        CHECK_EQUAL(ostring.str().size(), r);
+    }
+    
+    TEST_FIXTURE(StdIOFixture, PrintFULongHexMaxTest)
+    {
+        int r = fslc_fprintf(&stream, "Max long hex is %lx\n", -1L);
+        
+        int e = eprintf("Max long hex is %lx\n", -1L);
+        
+        CHECK_EQUAL(e, r);
+        CHECK_EQUAL(expected_fstring.get(), ostring.str());
+        CHECK_EQUAL(ostring.str().size(), r);
+    }
+    
+    TEST_FIXTURE(StdIOFixture, PrintFULongHexUpperMaxTest)
+    {
+        int r = fslc_fprintf(&stream, "Max long hex is %lX\n", -1L);
+        
+        int e = eprintf("Max long hex is %lX\n", -1L);
+        
+        CHECK_EQUAL(e, r);
+        CHECK_EQUAL(expected_fstring.get(), ostring.str());
+        CHECK_EQUAL(ostring.str().size(), r);
+    }
+    
+    TEST_FIXTURE(StdIOFixture, PrintFVeryLongIntTest)
+    {
+        int r = fslc_fprintf(&stream, "The answer is %lld!", 435432343442444432LL);
+        
+        int e = eprintf("The answer is %lld!", 435432343442444432LL);
+        
+        CHECK_EQUAL(e, r);
+        CHECK_EQUAL(expected_fstring.get(), ostring.str());
+        CHECK_EQUAL(ostring.str().size(), r);
+    }
+    
+    TEST_FIXTURE(StdIOFixture, PrintFVeryLongNegativeTest)
+    {
+        int r = fslc_fprintf(&stream, "Less than zero: %lld!", -5729932434424223L);
+        
+        int e = eprintf("Less than zero: %lld!", -5729932434424223L);
+        
+        CHECK_EQUAL(e, r);
+        CHECK_EQUAL(expected_fstring.get(), ostring.str());
+        CHECK_EQUAL(ostring.str().size(), r);
+    }
+    
+    TEST_FIXTURE(StdIOFixture, PrintFUVeryLongMaxTest)
+    {
+        int r = fslc_fprintf(&stream, "Max ulonglong is %llu\n", -1L);
+        
+        int e = eprintf("Max ulonglong is %llu\n", -1L);
+        
+        CHECK_EQUAL(e, r);
+        CHECK_EQUAL(expected_fstring.get(), ostring.str());
+        CHECK_EQUAL(ostring.str().size(), r);
+    }
+    
+    TEST_FIXTURE(StdIOFixture, PrintFUVeryLongHexMaxTest)
+    {
+        int r = fslc_fprintf(&stream, "Max long long hex is %llx\n", -1L);
+        
+        int e = eprintf("Max long long hex is %llx\n", -1L);
+        
+        CHECK_EQUAL(e, r);
+        CHECK_EQUAL(expected_fstring.get(), ostring.str());
+        CHECK_EQUAL(ostring.str().size(), r);
+    }
+    
+    TEST_FIXTURE(StdIOFixture, PrintFUVeryLongUpperHexMaxTest)
+    {
+        int r = fslc_fprintf(&stream, "Max long long hex is %llX\n", -1L);
+        
+        int e = eprintf("Max long long hex is %llX\n", -1L);
+        
+        CHECK_EQUAL(e, r);
+        CHECK_EQUAL(expected_fstring.get(), ostring.str());
+        CHECK_EQUAL(ostring.str().size(), r);
+    }
 }
