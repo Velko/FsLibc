@@ -274,4 +274,93 @@ SUITE(PrintF)
         CHECK_EQUAL(expected_fstring.get(), ostring.str());
         CHECK_EQUAL(ostring.str().size(), r);
     }
+    
+    TEST_FIXTURE(StdIOFixture, PrintFIntSignEofTest)
+    {
+        eof_counter = 10;
+        int r = fslc_fprintf(&stream, "Will stop %d", -1223);
+        
+        int e = eprintf("Will stop ");
+        
+        CHECK(r < 0);
+        CHECK_EQUAL(expected_fstring.get(), ostring.str());
+    }
+    
+    TEST_FIXTURE(StdIOFixture, PrintFIntMiddleEofTest)
+    {
+        eof_counter = 12;
+        int r = fslc_fprintf(&stream, "Will stop %d", -1223);
+        
+        int e = eprintf("Will stop -1");
+        
+        CHECK(r < 0);
+        CHECK_EQUAL(expected_fstring.get(), ostring.str());
+    }
+    
+    TEST_FIXTURE(StdIOFixture, PrintFStringMiddleEofTest)
+    {
+        eof_counter = 12;
+        int r = fslc_fprintf(&stream, "Will stop %s", "1223");
+        
+        int e = eprintf("Will stop 12");
+        
+        CHECK(r < 0);
+        CHECK_EQUAL(expected_fstring.get(), ostring.str());
+    }
+    
+    TEST_FIXTURE(StdIOFixture, PrintFCharEofTest)
+    {
+        eof_counter = 10;
+        int r = fslc_fprintf(&stream, "Will stop %c", 'a');
+        
+        int e = eprintf("Will stop ");
+        
+        CHECK(r < 0);
+        CHECK_EQUAL(expected_fstring.get(), ostring.str());
+    }
+    
+    TEST_FIXTURE(StdIOFixture, PrintFPercentEofTest)
+    {
+        eof_counter = 10;
+        int r = fslc_fprintf(&stream, "Will stop %%");
+        
+        int e = eprintf("Will stop ");
+        
+        CHECK(r < 0);
+        CHECK_EQUAL(expected_fstring.get(), ostring.str());
+    }
+    
+    TEST_FIXTURE(StdIOFixture, PrintFUIntMiddleEofTest)
+    {
+        eof_counter = 12;
+        int r = fslc_fprintf(&stream, "Will stop %u", 1223);
+        
+        int e = eprintf("Will stop 12");
+        
+        CHECK(r < 0);
+        CHECK_EQUAL(expected_fstring.get(), ostring.str());
+    }
+    
+    TEST_FIXTURE(StdIOFixture, PrintFUHexMiddleEofTest)
+    {
+        eof_counter = 12;
+        int r = fslc_fprintf(&stream, "Will stop %x", 0xA223);
+        
+        int e = eprintf("Will stop a2");
+        
+        CHECK(r < 0);
+        CHECK_EQUAL(expected_fstring.get(), ostring.str());
+    }
+    
+    TEST_FIXTURE(StdIOFixture, PrintFUHEXMiddleEofTest)
+    {
+        eof_counter = 12;
+        int r = fslc_fprintf(&stream, "Will stop %X", 0xA223);
+        
+        int e = eprintf("Will stop A2");
+        
+        CHECK(r < 0);
+        CHECK_EQUAL(expected_fstring.get(), ostring.str());
+    }
+
 }
