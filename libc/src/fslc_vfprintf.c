@@ -1,9 +1,28 @@
 #include "fslc_stdio.h"
 
+/* Prototype for printf's internal implementation */
+static int _fslc_vfprintf_impl(FSLC_FILE *stream, const char *format, va_list arg);
+
+/* Main exported function */
+int fslc_vfprintf(FSLC_FILE *stream, const char *format, va_list arg)
+{
+    if (fslc_stdout->pre_output) fslc_stdout->pre_output(fslc_stdout);
+
+    int res = _fslc_vfprintf_impl(stream, format, arg);
+
+    if (fslc_stdout->post_output) fslc_stdout->post_output(fslc_stdout);
+
+    return res;
+}
+
+/* Prototype to private FSLIBC function - implemented elsewhere */
 int _fslc_fputs_impl(const char *str, FSLC_FILE *stream);
-int _fslc_put_sint_l(signed long v, FSLC_FILE *stream);
-int _fslc_put_uint_l(unsigned long v, FSLC_FILE *stream);
-int _fslc_put_hex_l(unsigned long v, FSLC_FILE *stream, char alpha);
+
+
+/* Prototypes for internal functions */
+static int _fslc_put_sint_l(signed long v, FSLC_FILE *stream);
+static int _fslc_put_uint_l(unsigned long v, FSLC_FILE *stream);
+static int _fslc_put_hex_l(unsigned long v, FSLC_FILE *stream, char alpha);
 
 static int _get_sint_arg(va_list arg);
 static unsigned _get_uint_arg(va_list arg);
@@ -42,9 +61,9 @@ static void *_get_ptr_arg(va_list arg);
 #if __SIZEOF_LONG__ == 4
 
 #define BUFSIZE_LONG_DECIMAL    10
-int _fslc_put_sint_ll(signed long long v, FSLC_FILE *stream);
-int _fslc_put_uint_ll(unsigned long long v, FSLC_FILE *stream);
-int _fslc_put_hex_ll(unsigned long long v, FSLC_FILE *stream, char alpha);
+static int _fslc_put_sint_ll(signed long long v, FSLC_FILE *stream);
+static int _fslc_put_uint_ll(unsigned long long v, FSLC_FILE *stream);
+static int _fslc_put_hex_ll(unsigned long long v, FSLC_FILE *stream, char alpha);
 
 #elif __SIZEOF_LONG__ == 8
 
@@ -196,20 +215,7 @@ static void *_get_ptr_arg(va_list arg)
     return va_arg(arg, void *);
 }
 
-
-
-int fslc_vfprintf(FSLC_FILE *stream, const char *format, va_list arg)
-{
-    if (fslc_stdout->pre_output) fslc_stdout->pre_output(fslc_stdout);
-    
-    int res = _fslc_vfprintf_impl(stream, format, arg);
-    
-    if (fslc_stdout->post_output) fslc_stdout->post_output(fslc_stdout);
-    
-    return res;
-}
-
-int _fslc_put_sint_l(signed long v, FSLC_FILE *stream)
+static int _fslc_put_sint_l(signed long v, FSLC_FILE *stream)
 {
     if (v < 0)
     {
@@ -224,7 +230,7 @@ int _fslc_put_sint_l(signed long v, FSLC_FILE *stream)
         return _fslc_put_uint_l(v, stream);
 }
 
-int _fslc_put_uint_l(unsigned long v, FSLC_FILE *stream)
+static int _fslc_put_uint_l(unsigned long v, FSLC_FILE *stream)
 {
     char dbuff[BUFSIZE_LONG_DECIMAL+1], *p;
 
@@ -240,7 +246,7 @@ int _fslc_put_uint_l(unsigned long v, FSLC_FILE *stream)
     return _fslc_fputs_impl(p, stream);
 }
 
-int _fslc_put_hex_l(unsigned long v, FSLC_FILE *stream, char alpha)
+static int _fslc_put_hex_l(unsigned long v, FSLC_FILE *stream, char alpha)
 {
     char dbuff[BUFSIZE_LONG_HEX+1], *p;
 
@@ -259,7 +265,7 @@ int _fslc_put_hex_l(unsigned long v, FSLC_FILE *stream, char alpha)
 
 #if __SIZEOF_LONG__ == 4
 
-int _fslc_put_sint_ll(signed long long v, FSLC_FILE *stream)
+static int _fslc_put_sint_ll(signed long long v, FSLC_FILE *stream)
 {
     if (v < 0)
     {
@@ -274,7 +280,7 @@ int _fslc_put_sint_ll(signed long long v, FSLC_FILE *stream)
         return _fslc_put_uint_ll(v, stream);
 }
 
-int _fslc_put_uint_ll(unsigned long long v, FSLC_FILE *stream)
+static int _fslc_put_uint_ll(unsigned long long v, FSLC_FILE *stream)
 {
     char dbuff[BUFSIZE_LONG_LONG_DECIMAL+1], *p;
 
@@ -290,7 +296,7 @@ int _fslc_put_uint_ll(unsigned long long v, FSLC_FILE *stream)
     return _fslc_fputs_impl(p, stream);
 }
 
-int _fslc_put_hex_ll(unsigned long long v, FSLC_FILE *stream, char alpha)
+static int _fslc_put_hex_ll(unsigned long long v, FSLC_FILE *stream, char alpha)
 {
     char dbuff[BUFSIZE_LONG_LONG_HEX+1], *p;
 
