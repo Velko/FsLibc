@@ -5,6 +5,14 @@ int _fslc_put_sint_l(signed long v, FSLC_FILE *stream);
 int _fslc_put_uint_l(unsigned long v, FSLC_FILE *stream);
 int _fslc_put_hex_l(unsigned long v, FSLC_FILE *stream, char alpha);
 
+static int _get_sint_arg(va_list arg);
+static unsigned _get_uint_arg(va_list arg);
+static long _get_slong_arg(va_list arg);
+static unsigned long _get_ulong_arg(va_list arg);
+static long long _get_slonglong_arg(va_list arg);
+static unsigned long long _get_ulonglong_arg(va_list arg);
+static void *_get_ptr_arg(va_list arg);
+
 /* There are some considerations when formatting Integers for output:
  *     - on 32-bit systems integers will mostly be 32 bits long, except when one REALLY
  *       wants to print long long. It should be more optimal to use 32-bit calculations
@@ -68,13 +76,13 @@ static int _fslc_vfprintf_impl(FSLC_FILE *stream, const char *format, va_list ar
                 switch (*c)
                 {
                     case 's':
-                        pr = _fslc_fputs_impl(va_arg(arg, const char *), stream);
+                        pr = _fslc_fputs_impl((const char *)_get_ptr_arg(arg), stream);
                         if (pr < 0) return pr;
                         res += pr;
                         break;
 
                     case 'c':
-                        pr = stream->putc(va_arg(arg, int), stream);
+                        pr = stream->putc(_get_sint_arg(arg), stream);
                         if (pr < 0) return pr;
                         ++res;
                         break;
@@ -88,11 +96,11 @@ static int _fslc_vfprintf_impl(FSLC_FILE *stream, const char *format, va_list ar
                     case 'i':
                     case 'd':
                         if ((flags & FLAG_VERYLONG) == FLAG_VERYLONG)
-                            pr = _fslc_put_sint_ll(va_arg(arg, signed long long), stream);
+                            pr = _fslc_put_sint_ll(_get_slonglong_arg(arg), stream);
                         else if (flags & FLAG_LONG)
-                            pr = _fslc_put_sint_l(va_arg(arg, signed long), stream);
+                            pr = _fslc_put_sint_l(_get_slong_arg(arg), stream);
                         else
-                            pr = _fslc_put_sint_l(va_arg(arg, signed int), stream);
+                            pr = _fslc_put_sint_l(_get_sint_arg(arg), stream);
                         
                         if (pr < 0) return pr;
                         res += pr;
@@ -100,11 +108,11 @@ static int _fslc_vfprintf_impl(FSLC_FILE *stream, const char *format, va_list ar
                     
                     case 'u':
                         if ((flags & FLAG_VERYLONG) == FLAG_VERYLONG)
-                            pr = _fslc_put_uint_ll(va_arg(arg, unsigned long long), stream);
+                            pr = _fslc_put_uint_ll(_get_ulonglong_arg(arg), stream);
                         else if (flags & FLAG_LONG)
-                            pr = _fslc_put_uint_l(va_arg(arg, unsigned long), stream);
+                            pr = _fslc_put_uint_l(_get_ulong_arg(arg), stream);
                         else
-                            pr = _fslc_put_uint_l(va_arg(arg, unsigned int), stream);
+                            pr = _fslc_put_uint_l(_get_uint_arg(arg), stream);
                         
                         if (pr < 0) return pr;
                         res += pr;
@@ -112,11 +120,11 @@ static int _fslc_vfprintf_impl(FSLC_FILE *stream, const char *format, va_list ar
                     
                     case 'x':
                         if ((flags & FLAG_VERYLONG) == FLAG_VERYLONG)
-                            pr = _fslc_put_hex_ll(va_arg(arg, unsigned long long), stream, 'a');
+                            pr = _fslc_put_hex_ll(_get_ulonglong_arg(arg), stream, 'a');
                         else if (flags & FLAG_LONG)
-                            pr = _fslc_put_hex_l(va_arg(arg, unsigned long), stream, 'a');
+                            pr = _fslc_put_hex_l(_get_ulong_arg(arg), stream, 'a');
                         else
-                            pr = _fslc_put_hex_l(va_arg(arg, unsigned int), stream, 'a');
+                            pr = _fslc_put_hex_l(_get_uint_arg(arg), stream, 'a');
                         
                         if (pr < 0) return pr;
                         res += pr;
@@ -124,11 +132,11 @@ static int _fslc_vfprintf_impl(FSLC_FILE *stream, const char *format, va_list ar
                     
                     case 'X':
                         if ((flags & FLAG_VERYLONG) == FLAG_VERYLONG)
-                            pr = _fslc_put_hex_ll(va_arg(arg, unsigned long long), stream, 'A');
+                            pr = _fslc_put_hex_ll(_get_ulonglong_arg(arg), stream, 'A');
                         else if (flags & FLAG_LONG)
-                            pr = _fslc_put_hex_l(va_arg(arg, unsigned long), stream, 'A');
+                            pr = _fslc_put_hex_l(_get_ulong_arg(arg), stream, 'A');
                         else
-                            pr = _fslc_put_hex_l(va_arg(arg, unsigned int), stream, 'A');
+                            pr = _fslc_put_hex_l(_get_uint_arg(arg), stream, 'A');
                         
                         if (pr < 0) return pr;
                         res += pr;
@@ -152,6 +160,43 @@ static int _fslc_vfprintf_impl(FSLC_FILE *stream, const char *format, va_list ar
     
     return res;
 }
+
+static int _get_sint_arg(va_list arg)
+{
+    return va_arg(arg, signed int);
+}
+
+static unsigned _get_uint_arg(va_list arg)
+{
+    return va_arg(arg, unsigned int);
+}
+
+static long _get_slong_arg(va_list arg)
+{
+    return va_arg(arg, signed long);
+}
+
+static unsigned long _get_ulong_arg(va_list arg)
+{
+    return va_arg(arg, unsigned long);
+}
+
+static long long _get_slonglong_arg(va_list arg)
+{
+    return va_arg(arg, signed long long);
+}
+
+static unsigned long long _get_ulonglong_arg(va_list arg)
+{
+    return va_arg(arg, unsigned long long);
+}
+
+static void *_get_ptr_arg(va_list arg)
+{
+    return va_arg(arg, void *);
+}
+
+
 
 int fslc_vfprintf(FSLC_FILE *stream, const char *format, va_list arg)
 {
