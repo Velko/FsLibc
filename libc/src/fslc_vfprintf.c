@@ -277,7 +277,7 @@ static int _fslc_put_sint_ll(signed long long v, FSLC_FILE *stream)
         int pr = stream->putc('-', stream);
         if (pr < 0) return pr;
         
-        pr = _fslc_put_uint_l(-v, stream);
+        pr = _fslc_put_uint_ll(-v, stream);
         if (pr < 0) return pr;
         
         return pr+1;
