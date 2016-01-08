@@ -161,6 +161,17 @@ static int _fslc_vfprintf_impl(FSLC_FILE *stream, const char *format, va_list ar
                         res += pr;
                         break;
                         
+                    case 'p':
+                        pr = _fslc_fputs_impl("0x", stream);
+                        if (pr < 0) return pr;
+                        res += pr;
+
+                        pr = _fslc_put_hex_l(_get_ulong_arg(arg), stream, 'a');
+
+                        if (pr < 0) return pr;
+                        res += pr;
+                        break;
+
                     case 'l':
                         if (flags & FLAG_LONG) 
                             flags |= FLAG_VERYLONG;

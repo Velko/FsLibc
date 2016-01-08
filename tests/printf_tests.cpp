@@ -363,4 +363,45 @@ SUITE(PrintF)
         CHECK_EQUAL(expected_fstring.get(), ostring.str());
     }
 
+    TEST_FIXTURE(StdIOFixture, PrintPPointerTest)
+    {
+        void *ptr = (void *)0x032D47F2;
+
+        int r = fslc_fprintf(&stream, "A pointer: %p!", ptr);
+
+        int e = eprintf("A pointer: %p!", ptr);
+
+        CHECK_EQUAL(e, r);
+        CHECK_EQUAL(expected_fstring.get(), ostring.str());
+        CHECK_EQUAL(ostring.str().size(), r);
+    }
+
+    TEST_FIXTURE(StdIOFixture, PrintPPointerEofPrefixTest)
+    {
+        void *ptr = (void *)0x032D47F2;
+
+        int e = eprintf("A pointer: 0");
+
+        eof_counter = e;
+
+        int r = fslc_fprintf(&stream, "A pointer: %p!", ptr);
+
+        CHECK(r < 0);
+        CHECK_EQUAL(expected_fstring.get(), ostring.str());
+    }
+
+    TEST_FIXTURE(StdIOFixture, PrintPPointerEofMiddleTest)
+    {
+        void *ptr = (void *)0x032D47F2;
+
+        int e = eprintf("A pointer: 0x32");
+
+        eof_counter = e;
+
+        int r = fslc_fprintf(&stream, "A pointer: %p!", ptr);
+
+        CHECK(r < 0);
+        CHECK_EQUAL(expected_fstring.get(), ostring.str());
+    }
+
 }
