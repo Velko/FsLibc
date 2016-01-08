@@ -51,7 +51,9 @@ SUITE(PrintF)
         
         int r = fslc_fprintf(&stream, "Testing %s%% of all possibilities%c", "a few ", '!');
         
-        const char *expected_str = "Testing a few % of all possibilities!";
+        int e = eprintf("Testing %s%% of all possibilities%c", "a few ", '!');
+
+        const char *expected_str = expected_fstring.get();
         
         std::vector<FuncCallItem> expected_calls;
         expected_calls.push_back({ CalledFunc::PreOp, 0 });
@@ -59,7 +61,7 @@ SUITE(PrintF)
             expected_calls.push_back({ CalledFunc::PutC, *c });
         expected_calls.push_back({ CalledFunc::PostOp, 0 });
 
-        CHECK(r >= 0);
+        CHECK_EQUAL(e, r);
         CHECK_EQUAL(expected_calls.size(), FuncCallLog.size());
         CHECK_ARRAY_EQUAL(expected_calls, FuncCallLog, FuncCallLog.size());
         
