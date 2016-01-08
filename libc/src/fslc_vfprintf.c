@@ -26,8 +26,6 @@ static int _fslc_put_hex_l(unsigned long v, FSLC_FILE *stream, char alpha);
 
 static int _get_sint_arg(va_list arg);
 static unsigned _get_uint_arg(va_list arg);
-static long _get_slong_arg(va_list arg);
-static unsigned long _get_ulong_arg(va_list arg);
 static long long _get_slonglong_arg(va_list arg);
 static unsigned long long _get_ulonglong_arg(va_list arg);
 static void *_get_ptr_arg(va_list arg);
@@ -65,12 +63,18 @@ static int _fslc_put_sint_ll(signed long long v, FSLC_FILE *stream);
 static int _fslc_put_uint_ll(unsigned long long v, FSLC_FILE *stream);
 static int _fslc_put_hex_ll(unsigned long long v, FSLC_FILE *stream, char alpha);
 
+#define _get_slong_arg      _get_sint_arg
+#define _get_ulong_arg      _get_uint_arg
+
 #elif __SIZEOF_LONG__ == 8
 
 #define BUFSIZE_LONG_DECIMAL    BUFSIZE_LONG_LONG_DECIMAL
 #define _fslc_put_sint_ll   _fslc_put_sint_l
 #define _fslc_put_uint_ll   _fslc_put_uint_l
 #define _fslc_put_hex_ll    _fslc_put_hex_l
+
+#define _get_slong_arg      _get_slonglong_arg
+#define _get_ulong_arg      _get_ulonglong_arg
 
 #endif
 
@@ -199,16 +203,6 @@ static int _get_sint_arg(va_list arg)
 static unsigned _get_uint_arg(va_list arg)
 {
     return va_arg(arg, unsigned int);
-}
-
-static long _get_slong_arg(va_list arg)
-{
-    return va_arg(arg, signed long);
-}
-
-static unsigned long _get_ulong_arg(va_list arg)
-{
-    return va_arg(arg, unsigned long);
 }
 
 static long long _get_slonglong_arg(va_list arg)
