@@ -460,5 +460,16 @@ SUITE(PrintF)
         CHECK(r < 0);
         CHECK_EQUAL(expected_fstring.get(), ostring.str());
     }
+    
+    TEST_FIXTURE(StdIOFixture, PrintFInvalidTest)
+    {
+        // How to handle invalid printf format strings is undefined.
+        // But we should check anyway - just in case.
+        int r = fslc_fprintf(&stream, "An invalid %k specifier");
+
+        CHECK(r >= 0);
+        CHECK_EQUAL("An invalid  specifier", ostring.str());
+        CHECK_EQUAL(ostring.str().size(), r);
+    }
 
 }
