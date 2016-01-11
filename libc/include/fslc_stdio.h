@@ -2,6 +2,7 @@
 #define FSLC_STDIO_H
 
 #include <stdarg.h>
+#include <stddef.h>
 
 #ifndef ALT_FSLC_NAMES
 
@@ -44,6 +45,8 @@ extern "C" {
     int fslc_vprintf(const char *format, va_list arg);
     int fslc_fprintf(FSLC_FILE *stream, const char *format, ...);
     int fslc_printf(const char *format, ...);
+
+    int fslc_fwrite(const void *ptr, size_t size, size_t count, FSLC_FILE *stream);
 
 #ifdef __cplusplus
 } /* extern "C" */

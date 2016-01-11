@@ -17,6 +17,7 @@
     <File Name="src/fslc_fprintf.c"/>
     <File Name="src/fslc_vprintf.c"/>
     <File Name="src/fslc_vfprintf.c"/>
+    <File Name="src/fslc_fwrite.c"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
     <File Name="include/fslc_string.h"/>

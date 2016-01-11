@@ -12,6 +12,7 @@
     <File Name="stdio_fixture.cpp"/>
     <File Name="puts_tests.cpp"/>
     <File Name="printf_tests.cpp"/>
+    <File Name="fwrite_tests.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
     <File Name="stdio_fixture.h"/>
