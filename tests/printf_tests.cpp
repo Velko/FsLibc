@@ -255,6 +255,39 @@ SUITE(PrintF)
         CHECK_EQUAL(ostring.str().size(), r);
     }
     
+    TEST_FIXTURE(StdIOFixture, PrintFVeryLongZeroTest)
+    {
+        int r = fslc_fprintf(&stream, "The answer is %lld!", 0LL);
+        
+        int e = eprintf("The answer is %lld!", 0LL);
+        
+        CHECK_EQUAL(e, r);
+        CHECK_EQUAL(expected_fstring.get(), ostring.str());
+        CHECK_EQUAL(ostring.str().size(), r);
+    }
+    
+    TEST_FIXTURE(StdIOFixture, PrintFUVeryLongHexDigitsTest)
+    {
+        int r = fslc_fprintf(&stream, "Long long hex %llx\n", 0xDEADBEEFCAFE0000LL);
+        
+        int e = eprintf("Long long hex %llx\n", 0xDEADBEEFCAFE0000LL);
+        
+        CHECK_EQUAL(e, r);
+        CHECK_EQUAL(expected_fstring.get(), ostring.str());
+        CHECK_EQUAL(ostring.str().size(), r);
+    }
+    
+    TEST_FIXTURE(StdIOFixture, PrintFUVeryLongHexZeroTest)
+    {
+        int r = fslc_fprintf(&stream, "Long long hex zero %llx\n", 0LL);
+        
+        int e = eprintf("Long long hex zero %llx\n", 0LL);
+        
+        CHECK_EQUAL(e, r);
+        CHECK_EQUAL(expected_fstring.get(), ostring.str());
+        CHECK_EQUAL(ostring.str().size(), r);
+    }
+    
     TEST_FIXTURE(StdIOFixture, PrintFUVeryLongHexMaxTest)
     {
         int r = fslc_fprintf(&stream, "Max long long hex is %llx\n", -1L);
@@ -292,6 +325,28 @@ SUITE(PrintF)
     {
         eof_counter = 12;
         int r = fslc_fprintf(&stream, "Will stop %d", -1223);
+        
+        int e = eprintf("Will stop -1");
+        
+        CHECK(r < 0);
+        CHECK_EQUAL(expected_fstring.get(), ostring.str());
+    }
+    
+    TEST_FIXTURE(StdIOFixture, PrintFVeryLongSignEofTest)
+    {
+        eof_counter = 10;
+        int r = fslc_fprintf(&stream, "Will stop %lld", -1223LL);
+        
+        int e = eprintf("Will stop ");
+        
+        CHECK(r < 0);
+        CHECK_EQUAL(expected_fstring.get(), ostring.str());
+    }
+    
+    TEST_FIXTURE(StdIOFixture, PrintFVeryLongMiddleEofTest)
+    {
+        eof_counter = 12;
+        int r = fslc_fprintf(&stream, "Will stop %lld", -1223LL);
         
         int e = eprintf("Will stop -1");
         
