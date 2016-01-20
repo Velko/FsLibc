@@ -18,7 +18,7 @@ static int _fslc_fwrite_impl(const void *ptr, size_t count, FSLC_FILE *stream)
 {
     size_t i;
     
-    char *data = (char *)ptr;
+    unsigned char *data = (unsigned char *)ptr;
     
     for (i=0; i < count; ++i, ++data)
     {
