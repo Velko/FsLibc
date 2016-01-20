@@ -57,6 +57,15 @@ void StdIOFixture::fixture_postop(FSLC_FILE *stream)
     pf->FuncCallLog.push_back(call);
 }
 
+int StdIOFixture::null_putc(int c, FSLC_FILE *stream)
+{
+    return c;
+}
+
+void StdIOFixture::null_prepostop(FSLC_FILE *stream)
+{
+}
+
 int StdIOFixture::eprintf(const char *format, ...)
 {
     va_list args;

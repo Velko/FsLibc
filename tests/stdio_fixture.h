@@ -39,7 +39,11 @@ struct StdIOFixture
     static int fixture_putc(int c, FSLC_FILE *stream);
     static void fixture_preop(FSLC_FILE *stream);
     static void fixture_postop(FSLC_FILE *stream);
+    
+    static int null_putc(int c, FSLC_FILE *stream);
+    static void null_prepostop(FSLC_FILE *stream);
 };
+
 
 std::ostream &operator<< (std::ostream &stream, const StdIOFixture::FuncCallItem &citem);
 

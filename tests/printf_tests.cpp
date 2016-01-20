@@ -471,5 +471,35 @@ SUITE(PrintF)
         CHECK_EQUAL("An invalid  specifier", ostring.str());
         CHECK_EQUAL(ostring.str().size(), r);
     }
+    
+    TEST_FIXTURE(StdIOFixture, PrintFStdoutNDefaultTest)
+    {
+        FSLC_FILE null_stream;
+        null_stream.pre_output = null_prepostop;
+        null_stream.putc = null_putc;
+        null_stream.post_output = null_prepostop;
+        
+        fslc_stdout = &null_stream;
+        
+        stream.pre_output = fixture_preop;
+        stream.post_output = fixture_postop;
+        
+        int r = fslc_fprintf(&stream, "Hello, World!\n");
+        int e = eprintf("Hello, World!\n");
+        
+        const char *expected_str = expected_fstring.get();
+        
+        std::vector<FuncCallItem> expected_calls;
+        expected_calls.push_back({ CalledFunc::PreOp, 0 });
+        for (const char *c = expected_str; *c; ++c)
+            expected_calls.push_back({ CalledFunc::PutC, *c });
+        expected_calls.push_back({ CalledFunc::PostOp, 0 });
 
+        CHECK_EQUAL(e, r);
+        CHECK_EQUAL(expected_calls.size(), FuncCallLog.size());
+        CHECK_ARRAY_EQUAL(expected_calls, FuncCallLog, FuncCallLog.size());
+        
+        CHECK_EQUAL(expected_str, ostring.str());
+        CHECK_EQUAL(ostring.str().size(), r);
+    }
 }

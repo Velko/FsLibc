@@ -27,7 +27,7 @@ static int _fslc_vfprintf_impl(FSLC_FILE *stream, const char *format, struct va_
 /* Main exported function */
 int fslc_vfprintf(FSLC_FILE *stream, const char *format, va_list arg)
 {
-    if (fslc_stdout->pre_output) fslc_stdout->pre_output(fslc_stdout);
+    if (stream->pre_output) stream->pre_output(stream);
 
     struct va_list_w argw;
     va_copy(argw.arg, arg); // can not assign directly, should make a copy
@@ -36,7 +36,7 @@ int fslc_vfprintf(FSLC_FILE *stream, const char *format, va_list arg)
 
     va_end(argw.arg); // and free it after use
 
-    if (fslc_stdout->post_output) fslc_stdout->post_output(fslc_stdout);
+    if (stream->post_output) stream->post_output(stream);
 
     return res;
 }
