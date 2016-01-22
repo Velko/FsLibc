@@ -18,6 +18,12 @@
     <File Name="src/fslc_vprintf.c"/>
     <File Name="src/fslc_vfprintf.c"/>
     <File Name="src/fslc_fwrite.c"/>
+    <File Name="src/fslc_fread.c"/>
+    <File Name="src/fslc_fgets.c"/>
+    <File Name="src/fslc_getc.c"/>
+    <File Name="src/fslc_getchar.c"/>
+    <File Name="src/fslc_ungetc.c"/>
+    <File Name="src/fslc_stdin.c"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
     <File Name="include/fslc_string.h"/>

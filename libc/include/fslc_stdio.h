@@ -8,6 +8,7 @@
 
 #define FSLC_FILE       FILE
 #define fslc_stdout     stdout
+#define fslc_stdin      stdin
 #define fslc_putchar    putchar
 #define fslc_fputc      fputc
 #define fslc_fputs      fputs
@@ -18,6 +19,13 @@
 #define fslc_fprintf    fprintf
 #define fslc_printf     printf
 
+#define fslc_fread      fread
+
+#define fslc_getc       getc
+#define fslc_getchar    getchar
+#define fslc_ungetc     ungetc
+#define fslc_fgets      fgets
+
 #endif /* ALT_FSLC_NAMES */
 
 typedef struct _FSLC_FILE FSLC_FILE;
@@ -26,11 +34,14 @@ struct _FSLC_FILE
 {
     void *user_ptr;
     int (*putc)(int c, FSLC_FILE *stream);
+    int (*getc)(FSLC_FILE *stream);
     void (*pre_output)(FSLC_FILE *stream);
     void (*post_output)(FSLC_FILE *stream);
+    int ungetc_buf;
 };
 
 extern FSLC_FILE    *fslc_stdout;
+extern FSLC_FILE    *fslc_stdin;
 
 #ifdef __cplusplus
 extern "C" {
@@ -47,6 +58,12 @@ extern "C" {
     int fslc_printf(const char *format, ...);
 
     int fslc_fwrite(const void *ptr, size_t size, size_t count, FSLC_FILE *stream);
+    size_t fslc_fread(void *ptr, size_t size, size_t count, FSLC_FILE *stream);
+
+    int fslc_getc(FSLC_FILE *stream);
+    int fslc_getchar(void);
+    int fslc_ungetc(int c, FSLC_FILE *stream);
+    char *fslc_fgets(char *str, int num, FSLC_FILE *stream);
 
 #ifdef __cplusplus
 } /* extern "C" */
