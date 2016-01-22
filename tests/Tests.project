@@ -15,6 +15,7 @@
     <File Name="fwrite_tests.cpp"/>
     <File Name="getc_tests.cpp"/>
     <File Name="fread_tests.cpp"/>
+    <File Name="fgets_tests.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
     <File Name="stdio_fixture.h"/>
