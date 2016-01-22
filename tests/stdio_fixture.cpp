@@ -12,6 +12,7 @@ StdIOFixture::StdIOFixture()
     stream.getc = fixture_getc;
     stream.ungetc_buf = -1;
     eof_counter = -1; // default value = forever
+    fail_getc_calls = 0;
 }
 
 int StdIOFixture::fixture_putc(int c, FSLC_FILE *stream)
@@ -40,6 +41,13 @@ int StdIOFixture::fixture_getc(FSLC_FILE *stream)
     auto pf = (StdIOFixture *)stream->user_ptr;
     
     return pf->istring.get();
+}
+
+int StdIOFixture::fail_getc(FSLC_FILE *stream)
+{
+    auto pf = (StdIOFixture *)stream->user_ptr;
+    
+    pf->fail_getc_calls++;
 }
 
 void StdIOFixture::fixture_preop(FSLC_FILE *stream)

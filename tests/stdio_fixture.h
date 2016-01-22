@@ -32,6 +32,8 @@ struct StdIOFixture
     
     std::istringstream istring;
     
+    int fail_getc_calls;
+    
     std::unique_ptr<char> expected_fstring;
     
     int eprintf(const char *format, ...);
@@ -42,6 +44,7 @@ struct StdIOFixture
     static void fixture_preop(FSLC_FILE *stream);
     static void fixture_postop(FSLC_FILE *stream);
     static int fixture_getc(FSLC_FILE *stream);
+    static int fail_getc(FSLC_FILE *stream);
     
     static int null_putc(int c, FSLC_FILE *stream);
     static void null_prepostop(FSLC_FILE *stream);
