@@ -19,6 +19,7 @@
 #define fslc_fprintf    fprintf
 #define fslc_printf     printf
 
+#define fslc_fwrite     fwrite
 #define fslc_fread      fread
 
 #define fslc_getc       getc
@@ -57,7 +58,7 @@ extern "C" {
     int fslc_fprintf(FSLC_FILE *stream, const char *format, ...);
     int fslc_printf(const char *format, ...);
 
-    int fslc_fwrite(const void *ptr, size_t size, size_t count, FSLC_FILE *stream);
+    size_t fslc_fwrite(const void *ptr, size_t size, size_t count, FSLC_FILE *stream);
     size_t fslc_fread(void *ptr, size_t size, size_t count, FSLC_FILE *stream);
 
     int fslc_getc(FSLC_FILE *stream);
