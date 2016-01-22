@@ -9,6 +9,8 @@ StdIOFixture::StdIOFixture()
     memset(&stream, 0, sizeof(FSLC_FILE));
     stream.user_ptr = this;
     stream.putc = fixture_putc;
+    stream.getc = fixture_getc;
+    stream.ungetc_buf = -1;
     eof_counter = -1; // default value = forever
 }
 
@@ -31,6 +33,13 @@ int StdIOFixture::fixture_putc(int c, FSLC_FILE *stream)
     }
     else
         return -1;
+}
+
+int StdIOFixture::fixture_getc(FSLC_FILE *stream)
+{
+    auto pf = (StdIOFixture *)stream->user_ptr;
+    
+    return pf->istring.get();
 }
 
 void StdIOFixture::fixture_preop(FSLC_FILE *stream)
