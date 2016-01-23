@@ -13,7 +13,7 @@ SUITE(FGets)
         
         char *str = fslc_fgets(text_read, 10, &stream);
         
-        CHECK_EQUAL(text_read, str);
+        CHECK_EQUAL((uintptr_t)text_read, (uintptr_t)str);
         CHECK_EQUAL(0, str[5]);
         CHECK_EQUAL(5, strlen(str));
         CHECK_EQUAL("Hello", std::string(str));
@@ -27,7 +27,7 @@ SUITE(FGets)
         
         char *str = fslc_fgets(text_read, 20, &stream);
         
-        CHECK_EQUAL(text_read, str);
+        CHECK_EQUAL((uintptr_t)text_read, (uintptr_t)str);
         CHECK_EQUAL(0, str[6]);
         CHECK_EQUAL(6, strlen(str));
         CHECK_EQUAL("Hello\n", std::string(str));
@@ -41,7 +41,7 @@ SUITE(FGets)
 
         char *str = fslc_fgets(text_read, 6, &stream);
 
-        CHECK_EQUAL(text_read, str);
+        CHECK_EQUAL((uintptr_t)text_read, (uintptr_t)str);
         CHECK_EQUAL(0, str[5]);
         CHECK_EQUAL(5, strlen(str));
         CHECK_EQUAL("Hello", std::string(str));
@@ -55,7 +55,7 @@ SUITE(FGets)
 
         char *str = fslc_fgets(text_read, 20, &stream);
 
-        CHECK_EQUAL(text_read, str);
+        CHECK_EQUAL((uintptr_t)text_read, (uintptr_t)str);
         CHECK_EQUAL(0, str[7]);
         CHECK_EQUAL(7, strlen(str));
         CHECK_EQUAL("Hello\r\n", std::string(str));
@@ -71,7 +71,7 @@ SUITE(FGets)
         char *str = fslc_fgets(text_read, 20, &stream);
 
 
-        CHECK_EQUAL(text_read, str);
+        CHECK_EQUAL((uintptr_t)text_read, (uintptr_t)str);
         CHECK_EQUAL(0, str[5]);
         CHECK_EQUAL(5, strlen(str));
         CHECK_EQUAL("World", std::string(str));
@@ -86,7 +86,7 @@ SUITE(FGets)
         fslc_fgets(text_read, 20, &stream);
         char *str = fslc_fgets(text_read, 20, &stream);
 
-        CHECK_EQUAL(text_read, str);
+        CHECK_EQUAL((uintptr_t)text_read, (uintptr_t)str);
         CHECK_EQUAL(0, str[5]);
         CHECK_EQUAL(5, strlen(str));
         CHECK_EQUAL("World", std::string(str));

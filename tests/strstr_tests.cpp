@@ -12,7 +12,7 @@ SUITE(StrStr)
         const char *r = fslc_strstr(txt, "st");
         const char *e = strstr(txt, "st");
 
-        CHECK_EQUAL(e, r);
+        CHECK_EQUAL((uintptr_t)e, (uintptr_t)r);
     }
 
     TEST(NotFoundTest)
