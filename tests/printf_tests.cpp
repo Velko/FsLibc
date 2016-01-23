@@ -502,4 +502,17 @@ SUITE(PrintF)
         CHECK_EQUAL(expected_str, ostring.str());
         CHECK_EQUAL(ostring.str().size(), r);
     }
+
+    TEST_FIXTURE(StdIOFixture, PrintFManyManyArgsTest)
+    {
+        // On X64_86 first 6 args are passed in registers, rest on the stack. Using va_arg() generates a branch, which
+        // is normally not taken by test suite - gives incomplete branch coverage. This test passes many arguments
+        // in order to force the second branch to be taken - improve coverage rate.
+        int r = fslc_fprintf(&stream, "Arg1: %d, Arg2: %d, Arg3: %d, Arg4: %d, Arg5: %d, Arg6: %u, Arg7: %lld, Arg8: %llu, Arg9: %s", 1, 2, 3, 4, 5, 6U, 17179869184LL, 17179869184LLU, "str");
+        int e = eprintf("Arg1: %d, Arg2: %d, Arg3: %d, Arg4: %d, Arg5: %d, Arg6: %u, Arg7: %lld, Arg8: %llu, Arg9: %s", 1, 2, 3, 4, 5, 6U, 17179869184LL, 17179869184LLU, "str");
+
+        CHECK_EQUAL(e, r);
+        CHECK_EQUAL(expected_fstring.get(), ostring.str());
+        CHECK_EQUAL(ostring.str().size(), r);
+    }
 }
