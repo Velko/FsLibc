@@ -19,6 +19,7 @@
     <File Name="strlen_tests.cpp"/>
     <File Name="strchr_tests.cpp"/>
     <File Name="strstr_tests.cpp"/>
+    <File Name="strpbrk_tests.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
     <File Name="stdio_fixture.h"/>
