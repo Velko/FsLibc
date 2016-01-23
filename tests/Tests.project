@@ -24,6 +24,7 @@
     <File Name="strncmp_tests.cpp"/>
     <File Name="strmod_fixture.cpp"/>
     <File Name="strcpy_tests.cpp"/>
+    <File Name="strncpy_tests.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
     <File Name="stdio_fixture.h"/>
