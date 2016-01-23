@@ -24,6 +24,15 @@
     <File Name="src/fslc_getchar.c"/>
     <File Name="src/fslc_ungetc.c"/>
     <File Name="src/fslc_stdin.c"/>
+    <File Name="src/fslc_strlen.c"/>
+    <File Name="src/fslc_strcpy.c"/>
+    <File Name="src/fslc_strncpy.c"/>
+    <File Name="src/fslc_strcmp.c"/>
+    <File Name="src/fslc_strncmp.c"/>
+    <File Name="src/fslc_strchr.c"/>
+    <File Name="src/fslc_strstr.c"/>
+    <File Name="src/fslc_strpbrk.c"/>
+    <File Name="src/fslc_strtok_r.c"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
     <File Name="include/fslc_string.h"/>
