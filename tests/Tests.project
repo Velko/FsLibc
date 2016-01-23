@@ -20,9 +20,11 @@
     <File Name="strchr_tests.cpp"/>
     <File Name="strstr_tests.cpp"/>
     <File Name="strpbrk_tests.cpp"/>
+    <File Name="strcmp_tests.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
     <File Name="stdio_fixture.h"/>
+    <File Name="misc_utils.h"/>
   </VirtualDirectory>
   <Dependencies Name="Debug">
     <Project Name="Libc"/>
