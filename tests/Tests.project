@@ -21,6 +21,7 @@
     <File Name="strstr_tests.cpp"/>
     <File Name="strpbrk_tests.cpp"/>
     <File Name="strcmp_tests.cpp"/>
+    <File Name="strncmp_tests.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
     <File Name="stdio_fixture.h"/>
