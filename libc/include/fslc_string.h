@@ -9,6 +9,8 @@
 #define fslc_memmove    memmove
 #define fslc_memcmp     memcmp
 
+#define fslc_memset_l     memset_l
+
 #define fslc_strlen     strlen
 #define fslc_strcpy     strcpy
 #define fslc_strncpy    strncpy
@@ -29,6 +31,8 @@ extern "C" {
     void *fslc_memcpy(void *dest, const void *src, size_t len);
     void *fslc_memmove(void *dest, const void *src, size_t len);
     int fslc_memcmp(const void *ptr1, const void *ptr2, size_t num);
+
+    void *fslc_memset_l(void *ptr, unsigned long value, size_t num);
 
     size_t fslc_strlen(const char *str);
     char *fslc_strcpy(char *dest, const char *src);
