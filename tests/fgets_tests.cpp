@@ -32,15 +32,15 @@ SUITE(FGets)
         CHECK_EQUAL(6, strlen(str));
         CHECK_EQUAL("Hello\n", std::string(str));
     }
-    
+
     TEST_FIXTURE(StdIOFixture, FGetsBufSizeTest)
     {
-        istring.str("Hello World");
-        
+        istring.str("Hello_World");
+
         char text_read[20];
-        
-        char *str = fslc_fgets(text_read, 5, &stream);
-        
+
+        char *str = fslc_fgets(text_read, 6, &stream);
+
         CHECK_EQUAL(text_read, str);
         CHECK_EQUAL(0, str[5]);
         CHECK_EQUAL(5, strlen(str));

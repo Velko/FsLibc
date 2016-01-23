@@ -3,6 +3,7 @@
 char *fslc_fgets(char *str, int num, FSLC_FILE *stream)
 {
     int i;
+    --num;
     for (i = 0; i < num; ++i)
     {
         int c = fslc_getc(stream);
