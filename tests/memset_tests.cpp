@@ -101,4 +101,20 @@ SUITE(MemSet)
         CHECK_ARRAY_EQUAL(expected, testArray, TESTARRAY_SIZE);
         CHECK_EQUAL(testArray+7, r);
     }
+
+    TEST_FIXTURE(MemsetFixture, SetLDiffBytes)
+    {
+        #if __SIZEOF_LONG__ == 4
+            unsigned long val = 0xCAFEBABE;
+            unsigned char setVal[] = { 0xCA, 0xBE, 0xBA, 0xFE, 0xCA, 0xBE, 0xBA, 0xFE, 0xCA, 0xBE, 0xBA, 0xFE, 0xCA, 0xBE, 0xBA, 0xFE };
+        #elif __SIZEOF_LONG__ == 8
+            unsigned long val = 0xDEADBEEFCAFEBABE;
+            unsigned char setVal[] = { 0xCA, 0xEF, 0xBE, 0xAD, 0xDE, 0xBE, 0xBA, 0xFE, 0xCA, 0xEF, 0xBE, 0xAD, 0xDE, 0xBE, 0xBA, 0xFE };
+        #endif
+
+        void *r = fslc_memset_l(testArray+3, val, 16);
+        memcpy(expected+3, setVal, 16);
+
+        CHECK_ARRAY_EQUAL(expected, testArray, TESTARRAY_SIZE);
+    }
 }
