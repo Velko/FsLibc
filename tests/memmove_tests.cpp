@@ -83,4 +83,22 @@ SUITE(MemMove)
         CHECK_ARRAY_EQUAL(expected, testArray, TESTARRAY_SIZE);
         CHECK_EQUAL(testArray+6, r);
     }
+
+    TEST_FIXTURE(MemmoveFixture, MoveNonAligned1ByteNonOverlap)
+    {
+        void *r = fslc_memmove(testArray+22, testArray+7, 1);
+        memmove(expected+22, expected+7, 1);
+
+        CHECK_ARRAY_EQUAL(expected, testArray, TESTARRAY_SIZE);
+        CHECK_EQUAL(testArray+22, r);
+    }
+
+    TEST_FIXTURE(MemmoveFixture, MoveNonAligned2BytesOverlapBackward)
+    {
+        void *r = fslc_memmove(testArray+9, testArray+8, 2);
+        memmove(expected+9, expected+8, 2);
+
+        CHECK_ARRAY_EQUAL(expected, testArray, TESTARRAY_SIZE);
+        CHECK_EQUAL(testArray+9, r);
+    }
 }
