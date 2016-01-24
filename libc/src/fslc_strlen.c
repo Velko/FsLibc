@@ -1,7 +1,9 @@
 #include "fslc_string.h"
-#include <string.h>
 
 size_t fslc_strlen(const char *str)
 {
-    return strlen(str);
+    size_t res = 0;
+    for(; *str; ++str) ++res;
+
+    return res;
 }
