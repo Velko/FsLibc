@@ -26,6 +26,7 @@
     <File Name="strcpy_tests.cpp"/>
     <File Name="strncpy_tests.cpp"/>
     <File Name="strtok_tests.cpp"/>
+    <File Name="strspn_tests.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
     <File Name="stdio_fixture.h"/>
