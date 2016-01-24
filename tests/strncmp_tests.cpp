@@ -116,4 +116,15 @@ SUITE(StrNCmp)
 
         CHECK_EQUAL(SIGNOF(e) , SIGNOF(r));
     }
+
+    TEST(Neg0Test)
+    {
+        const char *str1 = "Test string \xEF";
+        const char *str2 = "Test string 2";
+
+        int r = fslc_strncmp(str1, str2, 20);
+        int e = strncmp(str1, str2, 20);
+
+        CHECK_EQUAL(SIGNOF(e) , SIGNOF(r));
+    }
 }
