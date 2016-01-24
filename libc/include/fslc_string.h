@@ -22,6 +22,7 @@
 #define fslc_strtok_r   strtok_r
 
 #define fslc_strcpy_e   strcpy_e
+#define fslc_strncpy_e  strncpy_e
 
 #endif /* ALT_FSLC_NAMES */
 
@@ -47,6 +48,7 @@ extern "C" {
     char *fslc_strtok_r(char *str, const char *delim, char **save_p);
 
     char *fslc_strcpy_e(char *dest, const char *src);
+    char *fslc_strncpy_e(char *dest, const char *src, size_t len);
 
 #ifdef __cplusplus
 } /* extern "C" */

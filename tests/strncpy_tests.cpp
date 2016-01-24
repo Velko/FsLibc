@@ -12,7 +12,7 @@ SUITE(StrNCpy)
 
         CHECK_EQUAL((uintptr_t)testString, (uintptr_t)cc);
 
-        CHECK_ARRAY_EQUAL(expectedString, testString, MAXLEN);
+        CHECK_ARRAY_EQUAL(expectedString, testString, strlen(expectedString)+1);
     }
 
     TEST_FIXTURE(StrModFixture, CopyNTerminateTest)
