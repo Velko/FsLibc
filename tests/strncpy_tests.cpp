@@ -24,4 +24,24 @@ SUITE(StrNCpy)
 
         CHECK_ARRAY_EQUAL(expectedString, testString, MAXLEN);
     }
+
+    TEST_FIXTURE(StrModFixture, CopyE0TerminateTest)
+    {
+        char *cc = fslc_strncpy_e(testString,"Hello, World!", 30);
+        strncpy(expectedString,"Hello, World!", 30);
+
+        CHECK_EQUAL((uintptr_t)testString+strlen(expectedString), (uintptr_t)cc);
+
+        CHECK_ARRAY_EQUAL(expectedString, testString, strlen(expectedString)+1);
+    }
+
+    TEST_FIXTURE(StrModFixture, CopyENTerminateTest)
+    {
+        char *cc = fslc_strncpy_e(testString,"Hello, World!", 5);
+        strncpy(expectedString,"Hello, World!", 5);
+
+        CHECK_EQUAL((uintptr_t)testString+5, (uintptr_t)cc);
+
+        CHECK_ARRAY_EQUAL(expectedString, testString, MAXLEN);
+    }
 }
