@@ -6,3 +6,8 @@ cov_report/
 /Makefile
 *.mk
 *.txt
+!CMakeLists.txt
+CMakeFiles/
+*.cmake
+Makefile
+*.a
