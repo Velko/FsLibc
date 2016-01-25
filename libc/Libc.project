@@ -35,6 +35,7 @@
     <File Name="src/fslc_strtok_r.c"/>
     <File Name="src/fslc_strspn.c"/>
     <File Name="src/fslc_memset_l.c"/>
+    <File Name="src/fslc_strcpy_e.c"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
     <File Name="include/fslc_string.h"/>
