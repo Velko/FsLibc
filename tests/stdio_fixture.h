@@ -1,7 +1,6 @@
 #ifndef STDIOFIXTURE_H
 #define STDIOFIXTURE_H
 
-#define ALT_FSLC_NAMES /* use alternative FSLC names - do not clash with Host Libc */
 #include "fslc_stdio.h"
 
 #include <vector>

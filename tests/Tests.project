@@ -50,6 +50,7 @@
       <Compiler Options="-g;-std=c++11" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
         <IncludePath Value="/usr/include/unittest++"/>
         <IncludePath Value="../libc/include"/>
+        <Preprocessor Value="ALT_FSLC_NAMES"/>
       </Compiler>
       <Linker Options="-fprofile-arcs" Required="yes">
         <LibraryPath Value="../libc/Debug"/>

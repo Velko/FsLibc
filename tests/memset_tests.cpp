@@ -1,5 +1,4 @@
 #include <UnitTest++.h>
-#define ALT_FSLC_NAMES /* use alternative FSLC names - do not clash with Host Libc */
 #include "fslc_string.h"
 #include "fslc_stringx.h"
 #include <string.h>
