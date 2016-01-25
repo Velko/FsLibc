@@ -9,8 +9,6 @@
 #define fslc_memmove    memmove
 #define fslc_memcmp     memcmp
 
-#define fslc_memset_l     memset_l
-
 #define fslc_strlen     strlen
 #define fslc_strcpy     strcpy
 #define fslc_strncpy    strncpy
@@ -21,9 +19,6 @@
 #define fslc_strpbrk    strpbrk
 #define fslc_strspn     strspn
 #define fslc_strtok_r   strtok_r
-
-#define fslc_strcpy_e   strcpy_e
-#define fslc_strncpy_e  strncpy_e
 
 #endif /* ALT_FSLC_NAMES */
 
@@ -36,8 +31,6 @@ extern "C" {
     void *fslc_memmove(void *dest, const void *src, size_t len);
     int fslc_memcmp(const void *ptr1, const void *ptr2, size_t num);
 
-    void *fslc_memset_l(void *ptr, unsigned long value, size_t num);
-
     size_t fslc_strlen(const char *str);
     char *fslc_strcpy(char *dest, const char *src);
     char *fslc_strncpy(char *dest, const char *src, size_t len);
@@ -48,9 +41,6 @@ extern "C" {
     char *fslc_strpbrk(const char *str, const char *delim);
     size_t fslc_strspn(const char *str, const char *delim);
     char *fslc_strtok_r(char *str, const char *delim, char **save_p);
-
-    char *fslc_strcpy_e(char *dest, const char *src);
-    char *fslc_strncpy_e(char *dest, const char *src, size_t len);
 
 #ifdef __cplusplus
 } /* extern "C" */
