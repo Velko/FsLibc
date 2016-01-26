@@ -172,6 +172,31 @@ It is recommended to use standards compliant versions where possible, turning to
 when it is absolutely necessary (like - when you are about to implement it yourself anyway). Extension
 functions are available from include file *fslc_stringx.h*.
 
+Build and install
+=================
+
+*FsLibc* uses *cmake* build system to compile its sources. There are 3 build profiles defined:
+
+* **Debug** - use while developing. Enables debugging information, code coverage information;
+* **Release** - compiles without debug information, full code optimizations. Function names in
+  compiled library are what is expected in *C Standard Library*. Use this mode to prepare library
+  for linking into kernel;
+* **RelCheck** - compiles with *almost release* settings. No debug info, full code optimization. The
+  only difference from *Release* is that function names are still prefixed with `fslc_`. The purpose
+  of this mode is to run unit tests on release code.
+
+For *Debug* and *RelCheck* the compile commands are almost identical:
+
+    cmake -DCMAKE_BUILD_TYPE=Debug .
+    make
+    make test
+
+For *Release* configuration, however, tests make no sense. You will test functions of *host* systems LibC
+at best. Therefore:
+
+    cmake -DCMAKE_BUILD_TYPE=Release .
+    make -C libc
+
 Tests
 =====
 
