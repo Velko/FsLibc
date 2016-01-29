@@ -132,4 +132,8 @@
       </Completion>
     </Configuration>
   </Settings>
+  <VirtualDirectory Name="stdinc">
+    <File Name="stdinc/string.h"/>
+    <File Name="stdinc/stdio.h"/>
+  </VirtualDirectory>
 </CodeLite_Project>
