@@ -9,5 +9,6 @@ cov_report/
 !CMakeLists.txt
 CMakeFiles/
 *.cmake
+!cross-toolchain.cmake
 Makefile
 *.a
