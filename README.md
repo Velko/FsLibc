@@ -22,7 +22,7 @@ Memory manipulation
 
 The bare minimum of *required* memory manipulation functions are:
 
-* `memset()` - fill memory with specfied byte value;
+* `memset()` - fill memory with specified byte value;
 * `memcpy()` - copy memory from one region to another;
 * `memmove()` - copy memory from one region to another, safe for overlapping regions;
 * `memcmp()` - compare two memory regions.
@@ -118,7 +118,7 @@ String manipulation
 -------------------
 
 Another frequently used class of functions in C standard library is functions for
-string manpululation. *FsLibc* provides a number of (by author's opinion) most used
+string manipulation. *FsLibc* provides a number of (by author's opinion) most used
 ones:
 
 * `strlen()` - get string length;
@@ -126,11 +126,11 @@ ones:
 * `strncpy()` - copy string, limit length;
 * `strcmp()` - compare two strings;
 * `strncmp()` - compare two strings, limit length;
-* `strchr()` - locate first occurance of character in string;
+* `strchr()` - locate first occurrence of character in string;
 * `strstr()` - locate substring;
 * `strtok_r()` - split string into tokens;
 * `strpbrk()` - locate specified characters in string;
-* `strspn()` - count specified characters at the beginnng of string.
+* `strspn()` - count specified characters at the beginning of string.
 
 Since there are no external dependencies, no additional setup is required. Functions
 are available from header file *string.h*.
@@ -170,12 +170,12 @@ implementing the compatible ones.
 
 It is recommended to use standards compliant versions where possible, turning to extension ones only
 when it is absolutely necessary (like - when you are about to implement it yourself anyway). Extension
-functions are available from include file *fslc_stringx.h*.
+functions are available from include file *fslc/stringx.h*.
 
 Build and install
 =================
 
-*FsLibc* uses *cmake* build system to compile its sources. There are 3 build profiles defined:
+*FsLibc* uses [CMake][cmake] build system to compile its sources. There are 3 build profiles defined:
 
 * **Debug** - use while developing. Enables debugging information, code coverage information;
 * **Release** - compiles without debug information, full code optimizations. Function names in
@@ -183,7 +183,8 @@ Build and install
   for linking into kernel;
 * **RelCheck** - compiles with *almost release* settings. No debug info, full code optimization. The
   only difference from *Release* is that function names are still prefixed with `fslc_`. The purpose
-  of this mode is to run unit tests on release code.
+  of this mode is to run unit tests on release code. Obviously, you still can not be absolutely sure if
+  it will behave on different platform. But you may try to test on target platform running Linux.
 
 For *Debug* and *RelCheck* the compile commands are almost identical:
 
@@ -191,16 +192,40 @@ For *Debug* and *RelCheck* the compile commands are almost identical:
     make
     make test
 
-For *Release* configuration, however, tests make no sense. You will test functions of *host* systems LibC
-at best. Therefore:
+**Warning**: do not attempt to run *make install* here, especially with elevated privileges. You risk
+to overwrite your host system's header files.
 
-    cmake -DCMAKE_BUILD_TYPE=Release .
+For *Release* configuration, most likely, you will want to cross-compile the library for your
+target platform. Edit file *cross-toolchain.cmake*, specify the compiler toolchain:
+
+    # specify the cross compiler
+    CMAKE_FORCE_C_COMPILER(/usr/local/cross/bin/arm-elf-eabi-gcc GNU)
+    CMAKE_FORCE_CXX_COMPILER(/usr/local/cross/bin/arm-elf-eabi-g++ GNU)
+
+This will switch compilers to *arm-elf-eabi* platform, installed at */usr/local/cross*. Now
+configure the system:
+
+    cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=cross-toolchain.cmake \
+          -DCMAKE_INSTALL_PREFIX=/home/devel/fslibc .
     make -C libc
+    make -C libc install
 
-Tests
-=====
+This will compile the library and then install it at location */home/devel/fslibc* (you may want
+to adjust it for your needs). Note that we are not even trying to build tests here. Most likely they
+will not compile, and even if they did they would not run, as host and target platforms differ.
+
+[cmake]: https://cmake.org/ "CMake"
+
+Development and tests
+=====================
 
 As C library is one of most fundamental piece of software, it's a very good idea to make it as bug-free
-as possible. *FsLibc* uses white-box unit tests to ensure correct behavior. The policy is to get 100%
-line and branch coverage at all times. If a bug is discovered, it must be first reproduced with
-appropiate unit test and only then fixed.
+as possible. *FsLibc* uses white-box unit tests with help of [UnitTest++][unittestpp] framework to ensure
+correct behavior. The policy is to get 100% line and branch coverage at all times. If a bug is discovered,
+it must be first reproduced with appropriate unit test and only then fixed.
+
+[CodeLite][codelite] is used for development. Its *workspace* and *project* files are also included in
+source files and coexist with [CMake][cmake] easily.
+
+[unittestpp]: https://unittest-cpp.github.io/ "UnitTest++ framework"
+[codelite]: http://codelite.org/ "CodeLite IDE"
