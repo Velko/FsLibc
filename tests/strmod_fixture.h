@@ -2,7 +2,7 @@
 #define STRMOD_FIXTURE_H
 
 #include "fslc_string.h"
-#include "fslc_stringx.h"
+#include "stringx.h"
 
 
 struct StrModFixture

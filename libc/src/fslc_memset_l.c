@@ -1,4 +1,4 @@
-#include "fslc_stringx.h"
+#include "stringx.h"
 #include <stdint.h>
 
 void *fslc_memset_l(void *ptr, unsigned long value, size_t num)

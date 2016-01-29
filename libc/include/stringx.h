@@ -5,7 +5,7 @@
 
 #ifndef ALT_FSLC_NAMES
 
-#define fslc_memset_l     memset_l
+#define fslc_memset_l   memset_l
 #define fslc_strcpy_e   strcpy_e
 #define fslc_strncpy_e  strncpy_e
 

@@ -1,6 +1,6 @@
 #include <UnitTest++.h>
 #include "fslc_string.h"
-#include "fslc_stringx.h"
+#include "stringx.h"
 #include <string.h>
 
 /** Test fixture containing 2 identically pre-seeded memory regions.

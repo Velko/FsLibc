@@ -1,4 +1,4 @@
-#include "fslc_stringx.h"
+#include "stringx.h"
 
 char *_fslc_strncpy_impl(char *dest, const char *src, size_t len);
 

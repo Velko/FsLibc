@@ -42,7 +42,7 @@
   <VirtualDirectory Name="include">
     <File Name="include/fslc_string.h"/>
     <File Name="include/fslc_stdio.h"/>
-    <File Name="include/fslc_stringx.h"/>
+    <File Name="include/stringx.h"/>
   </VirtualDirectory>
   <Settings Type="Static Library">
     <GlobalSettings>
