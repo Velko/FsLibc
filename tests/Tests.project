@@ -49,7 +49,7 @@
     <Configuration Name="Debug" CompilerType="GCC" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
       <Compiler Options="-g;-std=c++11" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
         <IncludePath Value="/usr/include/unittest++"/>
-        <IncludePath Value="../libc/include"/>
+        <IncludePath Value="../libc/include/fslc"/>
         <Preprocessor Value="ALT_FSLC_NAMES"/>
       </Compiler>
       <Linker Options="-fprofile-arcs" Required="yes">

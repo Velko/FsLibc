@@ -40,9 +40,13 @@
     <File Name="src/fslc_strncpy_impl.c"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
-    <File Name="include/fslc_string.h"/>
-    <File Name="include/fslc_stdio.h"/>
-    <File Name="include/stringx.h"/>
+    <File Name="include/stdio.h"/>
+    <File Name="include/string.h"/>
+    <VirtualDirectory Name="fslc">
+      <File Name="include/fslc/fslc_stdio.h"/>
+      <File Name="include/fslc/fslc_string.h"/>
+      <File Name="include/fslc/stringx.h"/>
+    </VirtualDirectory>
   </VirtualDirectory>
   <Settings Type="Static Library">
     <GlobalSettings>
@@ -56,7 +60,7 @@
     </GlobalSettings>
     <Configuration Name="Debug" CompilerType="GCC" DebuggerType="GNU gdb debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
       <Compiler Options="-g" C_Options="-g;-Wall;-Wextra;-fprofile-arcs;-ftest-coverage" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
-        <IncludePath Value="include"/>
+        <IncludePath Value="include/fslc"/>
         <Preprocessor Value="ALT_FSLC_NAMES"/>
       </Compiler>
       <Linker Options="" Required="yes"/>
@@ -132,8 +136,4 @@
       </Completion>
     </Configuration>
   </Settings>
-  <VirtualDirectory Name="stdinc">
-    <File Name="stdinc/string.h"/>
-    <File Name="stdinc/stdio.h"/>
-  </VirtualDirectory>
 </CodeLite_Project>
