@@ -12,3 +12,4 @@ CMakeFiles/
 !cross-toolchain.cmake
 Makefile
 *.a
+build/
