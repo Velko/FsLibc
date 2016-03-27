@@ -75,6 +75,15 @@ SUITE(MemSet)
         CHECK_EQUAL(testArray+9, r);
     }
     
+	TEST_FIXTURE(MemsetFixture, SetZeroOffset1Both1Byte)
+    {
+        void *r = fslc_memset(testArray+9, 0, 1);
+        memset(expected+9, 0, 1);
+
+        CHECK_ARRAY_EQUAL(expected, testArray, TESTARRAY_SIZE);
+        CHECK_EQUAL(testArray+9, r);
+    }
+
     TEST_FIXTURE(MemsetFixture, Set42Aligned8Bytes)
     {
         void *r = fslc_memset(testArray+8, 42, 8);

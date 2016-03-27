@@ -111,4 +111,13 @@ SUITE(MemCpy)
         CHECK_ARRAY_EQUAL(expected, testArray, TESTARRAY_SIZE);
         CHECK_EQUAL(testArray+10, r);
     }
+
+	TEST_FIXTURE(MemcpyFixture, CopyOffset2and1Both1Byte)
+    {
+        void *r = fslc_memcpy(testArray+10, sourceArray+9, 1);
+        memcpy(expected+10, sourceArray+9, 1);
+
+        CHECK_ARRAY_EQUAL(expected, testArray, TESTARRAY_SIZE);
+        CHECK_EQUAL(testArray+10, r);
+    }
 }
