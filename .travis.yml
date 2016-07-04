@@ -1,20 +1,13 @@
 sudo: required
-dist: precise
 language: cpp
 
-matrix:
-  include:
-    - compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-5
-env: COMPILER=g++-5
-
-compiler:
-  - g++-5
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - gcc-5
+    - g++-5
 
 script:
   - cmake -DCMAKE_BUILD_TYPE=RelCheck .
