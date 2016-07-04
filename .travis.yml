@@ -1,0 +1,5 @@
+language: cpp
+script:
+  - cmake -DCMAKE_BUILD_TYPE=RelCheck .
+  - make
+  - make test
