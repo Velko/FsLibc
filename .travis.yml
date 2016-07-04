@@ -13,6 +13,9 @@ matrix:
             - g++-5
 env: COMPILER=g++-5
 
+compiler:
+  - g++-5
+
 script:
   - cmake -DCMAKE_BUILD_TYPE=RelCheck .
   - make
