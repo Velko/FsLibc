@@ -8,6 +8,7 @@ addons:
     packages:
     - gcc-5
     - g++-5
+    - libunittest++-dev
 
 script:
   - export CC=/usr/bin/gcc-5
