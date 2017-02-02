@@ -135,8 +135,17 @@ ones:
 Since there are no external dependencies, no additional setup is required. Functions
 are available from header file *string.h*.
 
-Compability
-===========
+Miscellaneous utilities
+-----------------------
+
+C standard library also contains handy routines that are hard to attribute to
+particular group. *FsLibc* provides:
+
+* `bsearch()` - binary search in array.
+
+
+Compatibility
+=============
 
 *FsLibc* is intended to be a subset of "normal" C Standard Library. The majority of functions
 should behave just like their counterparts from standard library (file a bug, if they do not).
@@ -161,6 +170,8 @@ implementing the compatible ones.
 
 * `memset_l()` - fill the memory using byte pattern from *long* argument. Very useful for filling
    memory with *0xDEADBEEF*-style patterns. Internally used by `memset()`.
+* `memset_32()` - fill the memory using byte pattern from 32-bit argument. While `memset_l()` is
+   fine on 32-bit systems, on 64-bit systems it is too tiresome to specify long 64-bit arguments.
 * `strcpy_e()` - copy string, just as `strcpy()`, but return a pointer to the *end of dest* -
    pointing to terminating *\0* character. This way it is way more useful for string concatenation.
    More so - it's the natural value for *dest* after copying and additional steps are required to
