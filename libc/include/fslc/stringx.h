@@ -11,6 +11,13 @@
 
 #endif /* ALT_FSLC_NAMES */
 
+#if __SIZEOF_LONG__ == 4
+#define memset_32    memset_l
+#elif __SIZEOF_LONG__ == 8
+#define memset_32(A, V, S)	memset_l(A, (((unsigned long)(V)<<32)|(V)), S)
+#endif
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
