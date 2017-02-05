@@ -28,6 +28,7 @@
     <File Name="strtok_tests.cpp"/>
     <File Name="strspn_tests.cpp"/>
     <File Name="bsearch_tests.cpp"/>
+    <File Name="malloc_internals_tests.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
     <File Name="stdio_fixture.h"/>

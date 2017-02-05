@@ -39,6 +39,7 @@
     <File Name="src/fslc_strncpy_e.c"/>
     <File Name="src/fslc_strncpy_impl.c"/>
     <File Name="src/fslc_bsearch.c"/>
+    <File Name="src/fslc_malloc.c"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
     <File Name="include/stdio.h"/>
@@ -48,6 +49,7 @@
       <File Name="include/fslc/fslc_string.h"/>
       <File Name="include/fslc/stringx.h"/>
       <File Name="include/fslc/fslc_stdlib.h"/>
+      <File Name="include/fslc/fslc_malloc.h"/>
     </VirtualDirectory>
     <File Name="include/stdlib.h"/>
   </VirtualDirectory>
