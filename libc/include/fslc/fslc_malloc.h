@@ -31,6 +31,8 @@ struct bin_t
 extern "C" {
 #endif /* __cplusplus */
 
+    void initialize_bins(struct bin_t *bins);
+
 #ifdef __cplusplus
 } /* extern "C" */
 #endif /* __cplusplus */
