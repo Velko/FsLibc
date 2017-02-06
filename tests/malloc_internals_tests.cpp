@@ -249,4 +249,41 @@ SUITE(MallocInternals)
                 }
             }
     }
+
+// --- store_chunk ---------------
+    TEST(StoreSingleChunkInEmptyBin)
+    {
+        bin_t bin = {size: 0, top: nullptr, bottom: nullptr};
+
+        free_header_t chunk;
+
+        store_chunk(&bin, &chunk);
+
+        CHECK_EQUAL(&chunk, bin.top);
+        CHECK_EQUAL(&chunk, bin.bottom);
+
+        CHECK(bin.top->up == nullptr);
+        CHECK(bin.bottom->down == nullptr);
+    }
+
+    TEST(StoreSecondChunkInBin)
+    {
+        bin_t bin = {size: 0, top: nullptr, bottom: nullptr};
+
+        free_header_t chunk1;
+        store_chunk(&bin, &chunk1);
+
+        free_header_t chunk2;
+        store_chunk(&bin, &chunk2);
+
+        CHECK_EQUAL(&chunk1, bin.top);
+        CHECK_EQUAL(&chunk2, bin.bottom);
+
+        CHECK(bin.top->up == nullptr);
+        CHECK(bin.bottom->down == nullptr);
+
+        CHECK_EQUAL(&chunk1, chunk2.up);
+        CHECK_EQUAL(&chunk2, chunk1.down);
+    }
+
 }

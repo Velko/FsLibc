@@ -65,6 +65,7 @@ extern "C" {
     int find_bin_int(struct bin_t *bins, size_t target);
     int find_bin_gte(struct bin_t *bins, size_t target);
     int find_bin_lte(struct bin_t *bins, size_t target);
+    void store_chunk(struct bin_t *bin, struct free_header_t *chunk);
 
 #ifdef __cplusplus
 } /* extern "C" */

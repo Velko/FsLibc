@@ -108,3 +108,20 @@ int find_bin_int(struct bin_t *bins, size_t target)
     /* Now, low and high both point to the element in question. */
     return low;
 }
+
+void store_chunk(struct bin_t *bin, struct free_header_t *chunk)
+{
+    chunk->down = NULL;
+    chunk->up = bin->bottom;
+
+    if (bin->bottom)
+    {
+        bin->bottom->down = chunk;
+    }
+    else
+    {
+        bin->top = chunk;
+    }
+
+    bin->bottom = chunk;
+}
