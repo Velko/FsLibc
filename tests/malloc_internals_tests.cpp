@@ -34,7 +34,7 @@ SUITE(MallocInternals)
         bin_t bins[MALLOC_BIN_COUNT];
         initialize_bins(bins);
 
-        int b = find_bin_gte(bins, 0);
+        int b = find_bin_gte(bins, 1);
 
         CHECK_EQUAL(0, b);
     }
