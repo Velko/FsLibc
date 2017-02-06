@@ -58,34 +58,15 @@ void initialize_bins(struct bin_t *bins)
 
 int find_bin_gte(struct bin_t *bins, size_t target)
 {
-    // based on code @ http://stackoverflow.com/questions/6553970/find-the-first-element-in-an-array-that-is-greater-than-the-target
-
-    int low = 0;
-    int high = MALLOC_BIN_COUNT;
-    while (low != high)
-    {
-        int mid = (low + high) >> 1;
-        if (bins[mid].size < target)
-        {
-            /* This index, and everything below it, must not be the first element
-             * greater than or equal of what we're looking for because this element
-             * is smaller than the element.
-             */
-            low = mid + 1;
-        }
-        else
-        {
-            /* This element is larger than the element, so anything after it can't
-             * be the first element that's larger.
-             */
-            high = mid;
-        }
-    }
-    /* Now, low and high both point to the element in question. */
-    return low;
+    return find_bin_int(bins, target - 1);
 }
 
 int find_bin_lte(struct bin_t *bins, size_t target)
+{
+    return find_bin_int(bins, target) - 1;
+}
+
+int find_bin_int(struct bin_t *bins, size_t target)
 {
     // based on code @ http://stackoverflow.com/questions/6553970/find-the-first-element-in-an-array-that-is-greater-than-the-target
 
@@ -110,6 +91,6 @@ int find_bin_lte(struct bin_t *bins, size_t target)
             high = mid;
         }
     }
-    /* Now, low and high both point to the next element. */
-    return low - 1 ;
+    /* Now, low and high both point to the element in question. */
+    return low;
 }
