@@ -49,9 +49,11 @@
       <File Name="include/fslc/fslc_string.h"/>
       <File Name="include/fslc/stringx.h"/>
       <File Name="include/fslc/fslc_stdlib.h"/>
+      <File Name="include/fslc/fslc_assert.h"/>
       <File Name="include/fslc/fslc_malloc.h"/>
     </VirtualDirectory>
     <File Name="include/stdlib.h"/>
+    <File Name="include/assert.h"/>
   </VirtualDirectory>
   <Settings Type="Static Library">
     <GlobalSettings>

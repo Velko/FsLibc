@@ -28,6 +28,8 @@
     <File Name="strtok_tests.cpp"/>
     <File Name="strspn_tests.cpp"/>
     <File Name="bsearch_tests.cpp"/>
+    <File Name="assert_d_tests.cpp"/>
+    <File Name="assert_nd_tests.cpp"/>
     <File Name="malloc_internals_tests.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
