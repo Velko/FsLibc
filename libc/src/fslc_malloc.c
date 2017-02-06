@@ -1,11 +1,14 @@
 #include "fslc_stdlib.h"
 #include "fslc_malloc.h"
+#include "fslc_assert.h"
 
 void initialize_bins(struct bin_t *bins)
 {
     size_t i;
     size_t chunk_size = 0;
     size_t chunk_increment = CHUNK_MIN_SIZE;
+
+    fslc_assert(bins != NULL);
 
     for (i = 0; i < 64; ++i)
     {
@@ -72,11 +75,16 @@ void initialize_bins(struct bin_t *bins)
 
 int find_bin_gte(struct bin_t *bins, size_t target)
 {
+    fslc_assert(target > 0);
+    fslc_assert(bins != NULL);
+
     return find_bin_int(bins, target - 1);
 }
 
 int find_bin_lte(struct bin_t *bins, size_t target)
 {
+    fslc_assert(bins != NULL);
+
     return find_bin_int(bins, target) - 1;
 }
 
@@ -111,15 +119,22 @@ int find_bin_int(struct bin_t *bins, size_t target)
 
 void store_chunk(struct bin_t *bin, struct free_header_t *chunk)
 {
+    fslc_assert(bin != NULL);
+    fslc_assert(chunk != NULL);
+
     chunk->down = NULL;
     chunk->up = bin->bottom;
 
     if (bin->bottom)
     {
+        fslc_assert(bin->top != NULL);
+
         bin->bottom->down = chunk;
     }
     else
     {
+        fslc_assert(bin->top == NULL);
+
         bin->top = chunk;
     }
 
@@ -128,6 +143,8 @@ void store_chunk(struct bin_t *bin, struct free_header_t *chunk)
 
 struct free_header_t *pop_chunk(struct bin_t *bin)
 {
+    fslc_assert(bin != NULL);
+
     struct free_header_t *chunk = bin->top;
 
     if (chunk == NULL)
@@ -137,10 +154,14 @@ struct free_header_t *pop_chunk(struct bin_t *bin)
 
     if (bin->top)
     {
+        fslc_assert(bin->top->up  != NULL);
+
         bin->top->up = NULL;
     }
     else
     {
+        fslc_assert(bin->bottom != NULL);
+
         bin->bottom = NULL;
     }
 
