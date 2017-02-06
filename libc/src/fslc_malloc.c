@@ -11,6 +11,8 @@ void initialize_bins(struct bin_t *bins)
     {
         chunk_size += chunk_increment;
         bins[i].size = chunk_size;
+        bins[i].top = NULL;
+        bins[i].bottom = NULL;
     }
 
     chunk_increment *= 8; // 8^1
@@ -18,6 +20,8 @@ void initialize_bins(struct bin_t *bins)
     {
         chunk_size += chunk_increment;
         bins[i].size = chunk_size;
+        bins[i].top = NULL;
+        bins[i].bottom = NULL;
     }
 
     chunk_increment *= 8; // 8^2
@@ -25,6 +29,8 @@ void initialize_bins(struct bin_t *bins)
     {
         chunk_size += chunk_increment;
         bins[i].size = chunk_size;
+        bins[i].top = NULL;
+        bins[i].bottom = NULL;
     }
 
     chunk_increment *= 8; // 8^3
@@ -32,6 +38,8 @@ void initialize_bins(struct bin_t *bins)
     {
         chunk_size += chunk_increment;
         bins[i].size = chunk_size;
+        bins[i].top = NULL;
+        bins[i].bottom = NULL;
     }
 
     chunk_increment *= 8; // 8^4
@@ -39,6 +47,8 @@ void initialize_bins(struct bin_t *bins)
     {
         chunk_size += chunk_increment;
         bins[i].size = chunk_size;
+        bins[i].top = NULL;
+        bins[i].bottom = NULL;
     }
 
     chunk_increment *= 8; // 8^5
@@ -46,6 +56,8 @@ void initialize_bins(struct bin_t *bins)
     {
         chunk_size += chunk_increment;
         bins[i].size = chunk_size;
+        bins[i].top = NULL;
+        bins[i].bottom = NULL;
     }
 
     chunk_increment *= 8; // 8^6
@@ -53,6 +65,8 @@ void initialize_bins(struct bin_t *bins)
     {
         chunk_size += chunk_increment;
         bins[i].size = chunk_size;
+        bins[i].top = NULL;
+        bins[i].bottom = NULL;
     }
 }
 

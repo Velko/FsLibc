@@ -37,6 +37,20 @@ SUITE(MallocInternals)
         CHECK(bins[MALLOC_BIN_COUNT-1].size <= CHUNK_SIZE_MASK);
     }
 
+    TEST(InitBinsCheckTopBottomNull)
+    {
+        bin_t bins[MALLOC_BIN_COUNT];
+
+        initialize_bins(bins);
+
+        for(size_t i = 1; i < MALLOC_BIN_COUNT; ++i)
+        {
+            CHECK(bins[i].top == nullptr);
+            CHECK(bins[i].bottom == nullptr);
+        }
+    }
+
+
 // --- find_bin_gte ---------------
     TEST(FindGteFirstBinLarger)
     {

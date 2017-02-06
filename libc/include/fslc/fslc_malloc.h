@@ -50,6 +50,8 @@ struct chunk_footer_t
 struct bin_t
 {
     size_t size;
+    struct free_header_t *top;
+    struct free_header_t *bottom;
 };
 
 #define MALLOC_BIN_COUNT    128
