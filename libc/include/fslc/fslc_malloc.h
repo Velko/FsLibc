@@ -33,6 +33,7 @@ extern "C" {
 
     void initialize_bins(struct bin_t *bins);
     int find_bin_gte(struct bin_t *bins, size_t target);
+    int find_bin_lte(struct bin_t *bins, size_t target);
 
 #ifdef __cplusplus
 } /* extern "C" */

@@ -121,4 +121,109 @@ SUITE(MallocInternals)
                 }
             }
     }
+
+// --- find_bin_lte ---------------
+    TEST(FindLteFirstBinSmaller)
+    {
+        bin_t bins[MALLOC_BIN_COUNT];
+        initialize_bins(bins);
+
+        int b = find_bin_lte(bins, bins[0].size + 1);
+
+        CHECK_EQUAL(0, b);
+    }
+
+    TEST(FindLteFirstBinEqual)
+    {
+        bin_t bins[MALLOC_BIN_COUNT];
+        initialize_bins(bins);
+
+        int b = find_bin_lte(bins, bins[0].size);
+
+        CHECK_EQUAL(0, b);
+    }
+
+    TEST(FindLteBeforeFirstBin)
+    {
+        bin_t bins[MALLOC_BIN_COUNT];
+        initialize_bins(bins);
+
+        int b = find_bin_lte(bins, bins[0].size - 1);
+
+        // if target < first bin, returns -1 -> unusable index
+
+        CHECK_EQUAL(-1, b);
+    }
+
+    TEST(FindLteSecondBinLarger)
+    {
+        bin_t bins[MALLOC_BIN_COUNT];
+        initialize_bins(bins);
+
+        int b = find_bin_lte(bins, bins[1].size + 1);
+
+        CHECK_EQUAL(1, b);
+    }
+
+    TEST(FindLteSecondBinEqual)
+    {
+        bin_t bins[MALLOC_BIN_COUNT];
+        initialize_bins(bins);
+
+        int b = find_bin_lte(bins, bins[1].size);
+
+        CHECK_EQUAL(1, b);
+    }
+
+    TEST(FindLteEqLastBin)
+    {
+        bin_t bins[MALLOC_BIN_COUNT];
+        initialize_bins(bins);
+
+        int b = find_bin_lte(bins, bins[MALLOC_BIN_COUNT-1].size);
+
+        CHECK_EQUAL(MALLOC_BIN_COUNT-1, b);
+    }
+
+    TEST(FindLteAfterLastBin)
+    {
+        bin_t bins[MALLOC_BIN_COUNT];
+        initialize_bins(bins);
+
+        int b = find_bin_lte(bins, bins[MALLOC_BIN_COUNT-1].size+1);
+
+        // should find last bin
+        CHECK_EQUAL(MALLOC_BIN_COUNT-1, b);
+    }
+
+    TEST(FindLteAllBins)
+    {
+        bin_t bins[MALLOC_BIN_COUNT];
+        initialize_bins(bins);
+
+        /* looping for all possible target sizes is not feasible, therefore we check 3 values
+         * (=x-1, =x, =x+1) around each bin size.
+         */
+        for (size_t b_i = 0; b_i < MALLOC_BIN_COUNT; ++b_i)
+            for (size_t target = bins[b_i].size - 1; target <= bins[b_i].size + 1; ++target)
+            {
+                int b = find_bin_lte(bins, target);
+
+                CHECK(b < MALLOC_BIN_COUNT);
+
+                if (b >= 0)
+                {
+                    // Normal case - bin found
+                    CHECK(bins[b].size <= target);
+                    if (b < MALLOC_BIN_COUNT - 2)
+                        CHECK(bins[b+1].size > target);
+                }
+                else
+                {
+                    // Bin was not found - target too small
+                    CHECK_EQUAL(-1, b);
+                    CHECK(bins[0].size > target);
+                }
+            }
+    }
 }

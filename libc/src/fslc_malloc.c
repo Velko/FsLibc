@@ -84,3 +84,32 @@ int find_bin_gte(struct bin_t *bins, size_t target)
     /* Now, low and high both point to the element in question. */
     return low;
 }
+
+int find_bin_lte(struct bin_t *bins, size_t target)
+{
+    // based on code @ http://stackoverflow.com/questions/6553970/find-the-first-element-in-an-array-that-is-greater-than-the-target
+
+    int low = 0;
+    int high = MALLOC_BIN_COUNT;
+    while (low != high)
+    {
+        int mid = (low + high) >> 1;
+        if (bins[mid].size <= target)
+        {
+            /* This index, and everything below it, must not be the first element
+             * greater than what we're looking for because this element is no greater
+             * than the element.
+             */
+            low = mid + 1;
+        }
+        else
+        {
+           /* This element is at least as large as the element, so anything after it can't
+            * be the first element that's at least as large.
+            */
+            high = mid;
+        }
+    }
+    /* Now, low and high both point to the next element. */
+    return low - 1 ;
+}
