@@ -286,4 +286,41 @@ SUITE(MallocInternals)
         CHECK_EQUAL(&chunk2, chunk1.down);
     }
 
+// --- pop_chunk ---------------
+    TEST(PopChunkFromEmpty)
+    {
+        bin_t bin = {size: 0, top: nullptr, bottom: nullptr};
+
+        free_header_t *chunk = pop_chunk(&bin);
+
+        CHECK(chunk == nullptr);
+    }
+
+    TEST(PopLastChunk)
+    {
+        bin_t bin = {size: 0, top: nullptr, bottom: nullptr};
+        free_header_t chunk;
+        store_chunk(&bin, &chunk);
+
+        free_header_t *pchunk = pop_chunk(&bin);
+
+        CHECK_EQUAL(&chunk, pchunk);
+        CHECK(bin.top == nullptr);
+        CHECK(bin.bottom == nullptr);
+    }
+
+    TEST(PopChunkRemains)
+    {
+        bin_t bin = {size: 0, top: nullptr, bottom: nullptr};
+        free_header_t chunks[2];
+        store_chunk(&bin, chunks + 0);
+        store_chunk(&bin, chunks + 1);
+
+        free_header_t *pchunk = pop_chunk(&bin);
+
+        CHECK_EQUAL(chunks, pchunk);
+        CHECK_EQUAL(chunks + 1, bin.top);
+        CHECK(bin.top->up == nullptr);
+        CHECK_EQUAL(chunks + 1, bin.bottom);
+    }
 }

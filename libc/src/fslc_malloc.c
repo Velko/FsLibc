@@ -125,3 +125,24 @@ void store_chunk(struct bin_t *bin, struct free_header_t *chunk)
 
     bin->bottom = chunk;
 }
+
+struct free_header_t *pop_chunk(struct bin_t *bin)
+{
+    struct free_header_t *chunk = bin->top;
+
+    if (chunk == NULL)
+        return NULL;
+
+    bin->top = chunk->down;
+
+    if (bin->top)
+    {
+        bin->top->up = NULL;
+    }
+    else
+    {
+        bin->bottom = NULL;
+    }
+
+    return chunk;
+}
