@@ -19,13 +19,14 @@ struct chunk_header_t
     size_t size_x[1];
 };
 
-/* Chunk addresses are at least 4-aligned, leaving 2 lowest bits for flags */
-#define CHUNK_FLAGS_MASK        0x00000003
+/* Chunk sizes are multiples of at least 16 (4 pointers on 32-bit arch),
+ * leaving 4 lowest bits available for flags */
+#define CHUNK_FLAGS_MASK        0x0000000F
 
 /* Chunk size occupies 3 bytes and 1 bit, allowing up to 32 MiB chunk size.
  * Currently bins are initialized up to ~18.5 MiB sizes.
  */
-#define CHUNK_SIZE_MASK         0x01FFFFFC
+#define CHUNK_SIZE_MASK         0x01FFFFF0
 
 /* Chunk bin index. highest 7 bits is just enough to squeeze in index of
  * associated bin.
