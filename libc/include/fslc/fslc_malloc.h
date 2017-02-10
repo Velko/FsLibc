@@ -38,6 +38,10 @@ struct chunk_header_t
  */
 #define CHUNK_BIN_IDX_SHIFT     25
 
+/* Mask to apply after chunk index has been shifted to retrieve.
+ */
+#define CHUNK_BIN_IDX_MASK_LO      0x7F
+
 /* Free chunk contains 2 additional pointers */
 struct free_header_t
 {
@@ -63,6 +67,9 @@ struct bin_t
 #define MALLOC_BIN_COUNT    128
 #define CHUNK_MIN_SIZE      (sizeof(struct free_header_t) + sizeof(struct chunk_footer_t))
 #define ADD_ADDR(targ_type, source, amount)     ((targ_type)(((char *)(source))+(amount)))
+
+#define CHUNK_IDX(size_x)   (((size_x) >> CHUNK_BIN_IDX_SHIFT) & CHUNK_BIN_IDX_MASK_LO)
+#define CHUNK_SIZE(size_x)  ((size_x) & CHUNK_SIZE_MASK)
 
 #ifdef __cplusplus
 extern "C" {
