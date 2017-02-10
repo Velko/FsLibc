@@ -323,4 +323,17 @@ SUITE(MallocInternals)
         CHECK(bin.top->up == nullptr);
         CHECK_EQUAL(chunks + 1, bin.bottom);
     }
+
+// --- ADD_ADDR ---------------
+    TEST(AddAddr)
+    {
+        size_t dummy;
+        size_t *ptr = &dummy;
+
+        free_header_t *a_ptr = ADD_ADDR(free_header_t *, ptr, 3040);
+
+        uintptr_t e_p = (uintptr_t)ptr;
+
+        CHECK_EQUAL((free_header_t *)(e_p + 3040), a_ptr);
+    }
 }

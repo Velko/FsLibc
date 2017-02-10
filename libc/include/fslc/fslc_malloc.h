@@ -57,6 +57,7 @@ struct bin_t
 
 #define MALLOC_BIN_COUNT    128
 #define CHUNK_MIN_SIZE      (sizeof(struct free_header_t) + sizeof(struct chunk_footer_t))
+#define ADD_ADDR(targ_type, source, amount)     ((targ_type)(((char *)(source))+(amount)))
 
 #ifdef __cplusplus
 extern "C" {
