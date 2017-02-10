@@ -33,6 +33,11 @@ struct chunk_header_t
  */
 #define CHUNK_BIN_IDX_MASK      0xFE000000
 
+/* In order to store/retrieve bin index from size_x field, it has to be shifted
+ * 3 bytes and one bit.
+ */
+#define CHUNK_BIN_IDX_SHIFT     25
+
 /* Free chunk contains 2 additional pointers */
 struct free_header_t
 {
