@@ -336,4 +336,18 @@ SUITE(MallocInternals)
 
         CHECK_EQUAL((free_header_t *)(e_p + 3040), a_ptr);
     }
+
+// --- update_chunk ---------------
+    TEST(UpdateChunk)
+    {
+        char buffer[512];
+
+        free_header_t *chunk = (free_header_t *)buffer;
+        chunk_footer_t *footer = (chunk_footer_t *)(buffer + (512 - sizeof(size_t)));
+
+        update_chunk(chunk, 512, 127, 3);
+
+        CHECK_EQUAL(0xFE000203, chunk->size_x[0]);
+        CHECK_EQUAL(0xFE000203, footer->size_x);
+    }
 }

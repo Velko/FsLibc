@@ -167,3 +167,18 @@ struct free_header_t *pop_chunk(struct bin_t *bin)
 
     return chunk;
 }
+
+void update_chunk(struct free_header_t *chunk, size_t size, size_t bin_index, unsigned char flags)
+{
+    fslc_assert(chunk != NULL);
+    fslc_assert(flags <= CHUNK_FLAGS_MASK);
+    fslc_assert((size & CHUNK_FLAGS_MASK) == 0);
+    fslc_assert(size <= CHUNK_SIZE_MASK);
+    fslc_assert(size >= CHUNK_MIN_SIZE);
+    fslc_assert(bin_index < MALLOC_BIN_COUNT);
+
+    chunk->size_x[0] = (bin_index << 25) | size | flags;
+
+    struct chunk_footer_t *footer = ADD_ADDR(struct chunk_footer_t *, chunk, size - sizeof(struct chunk_footer_t));
+    footer->size_x = chunk->size_x[0];
+}
