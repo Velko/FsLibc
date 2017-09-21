@@ -141,7 +141,16 @@ Miscellaneous utilities
 C standard library also contains handy routines that are hard to attribute to
 particular group. *FsLibc* provides:
 
-* `bsearch()` - binary search in array.
+* `bsearch()` - binary search in array;
+* `assert()` - validate preconditions in code.
+
+External dependencies
+=====================
+
+In order to use several facilities of *FsLibc*, few external dependencies has to be provided
+by other means:
+
+* `__fslc_assert_fail()` - function to be called when assertion fails. See *fslc/fslc_assert.h* for exact prototype.
 
 
 Compatibility
