@@ -187,10 +187,13 @@ implementing the compatible ones.
    preserve original one.
 * `strncpy_e()` - behaves just like `strncpy()`, but also returns pointer to the end of the string.
    Returned value points to address just after the last non-\0 character copied.
+* `bsearch_i()` - behaves like `bsearch()`, but returns the index of the found item in the array. If
+   key is not found, a negative number, bitwise complement of the index of the first item that is
+   larger than key (or bitwise complement of num, if key is larger than all items in the array).
 
 It is recommended to use standards compliant versions where possible, turning to extension ones only
 when it is absolutely necessary (like - when you are about to implement it yourself anyway). Extension
-functions are available from include file *fslc/stringx.h*.
+functions are available from include files *fslc/stringx.h* and *fslc/stdlibx.h*.
 
 Build and install
 =================
