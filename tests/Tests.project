@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CodeLite_Project Name="Tests" InternalType="UnitTest++">
+<CodeLite_Project Name="Tests" InternalType="UnitTest++" Version="10.0.0">
   <Description/>
   <Dependencies/>
   <VirtualDirectory Name="src">
@@ -31,6 +31,7 @@
     <File Name="assert_d_tests.cpp"/>
     <File Name="assert_nd_tests.cpp"/>
     <File Name="malloc_internals_tests.cpp"/>
+    <File Name="bsearch_i_tests.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
     <File Name="stdio_fixture.h"/>
