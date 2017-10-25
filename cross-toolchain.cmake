@@ -1,11 +1,11 @@
-INCLUDE(CMakeForceCompiler)
-
-# this one is important
 SET(CMAKE_SYSTEM_NAME Generic)
 
 # specify the cross compiler
-CMAKE_FORCE_C_COMPILER(/usr/local/cross/bin/arm-elf-eabi-gcc GNU)
-CMAKE_FORCE_CXX_COMPILER(/usr/local/cross/bin/arm-elf-eabi-g++ GNU)
+SET(CMAKE_C_COMPILER arm-elf-eabi-gcc)
+SET(CMAKE_CXX_COMPILER arm-elf-eabi-g++)
+
+# use this if CMAKE complains about '-rdynamic'
+SET(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 
 # search for programs in the build host directories
 SET(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
