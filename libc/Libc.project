@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CodeLite_Project Name="Libc" InternalType="UnitTest++">
+<CodeLite_Project Name="Libc" InternalType="UnitTest++" Version="10.0.0">
   <Description/>
   <Dependencies/>
   <VirtualDirectory Name="src">
@@ -40,6 +40,7 @@
     <File Name="src/fslc_strncpy_impl.c"/>
     <File Name="src/fslc_bsearch.c"/>
     <File Name="src/fslc_malloc.c"/>
+    <File Name="src/fslc_bsearch_i.c"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
     <File Name="include/stdio.h"/>
@@ -51,6 +52,7 @@
       <File Name="include/fslc/fslc_stdlib.h"/>
       <File Name="include/fslc/fslc_assert.h"/>
       <File Name="include/fslc/fslc_malloc.h"/>
+      <File Name="include/fslc/stdlibx.h"/>
     </VirtualDirectory>
     <File Name="include/stdlib.h"/>
     <File Name="include/assert.h"/>
