@@ -52,6 +52,20 @@ struct chunk_footer_t
     size_t size_x;
 };
 
+/* Struct for easy navigation to next header */
+struct chunk_footer_navnext_t
+{
+    struct chunk_footer_t footer;
+    struct chunk_header_t next_header[0];
+};
+
+/* Struct for easy navigation to preceding footer */
+struct chunk_header_navprev_t
+{
+    struct chunk_footer_t[0] prev_footer;
+    struct chunk_header_t header;
+};
+
 
 struct bin_t
 {
