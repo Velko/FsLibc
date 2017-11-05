@@ -7,18 +7,6 @@
 
 #include <stddef.h>
 
-
-/* Common chunk header.
- * size_x member packs flags, size and associated bin index in 32-bits.
- *
- * It is defined as an array, to allow quick access to preceding
- * chunk's footer (size_x[-1])
- */
-struct chunk_header_t
-{
-    size_t size_x[1];
-};
-
 /* Chunk sizes are multiples of at least 16 (4 pointers on 32-bit arch),
  * leaving 4 lowest bits available for flags */
 #define CHUNK_FLAGS_MASK        0x0000000F
@@ -42,15 +30,23 @@ struct chunk_header_t
  */
 #define CHUNK_BIN_IDX_MASK_LO      0x7F
 
+/* Common chunk header.
+ * size_x member packs flags, size and associated bin index in 32-bits.
+ */
+struct chunk_header_t
+{
+    size_t size_x;
+};
+
 /* Free chunk contains 2 additional pointers */
 struct free_header_t
 {
-    size_t size_x[1];
+    size_t size_x;
     struct free_header_t *up;
     struct free_header_t *down;
 };
 
-/* Chunk footer should always contain same value as header's size_x[0]. */
+/* Chunk footer should always contain same value as header's size_x. */
 struct chunk_footer_t
 {
     size_t size_x;

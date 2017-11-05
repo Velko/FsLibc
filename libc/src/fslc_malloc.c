@@ -166,8 +166,8 @@ void update_chunk(struct free_header_t *chunk, size_t size, size_t bin_index, un
     fslc_assert(size >= CHUNK_MIN_SIZE);
     fslc_assert(bin_index < MALLOC_BIN_COUNT);
 
-    chunk->size_x[0] = (bin_index << CHUNK_BIN_IDX_SHIFT) | size | flags;
+    chunk->size_x = (bin_index << CHUNK_BIN_IDX_SHIFT) | size | flags;
 
     struct chunk_footer_t *footer = ADD_ADDR(struct chunk_footer_t *, chunk, size - sizeof(struct chunk_footer_t));
-    footer->size_x = chunk->size_x[0];
+    footer->size_x = chunk->size_x;
 }

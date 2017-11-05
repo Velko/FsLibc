@@ -347,7 +347,7 @@ SUITE(MallocInternals)
 
         update_chunk(chunk, 512, 127, 3);
 
-        CHECK_EQUAL(0xFE000203, chunk->size_x[0]);
+        CHECK_EQUAL(0xFE000203, chunk->size_x);
         CHECK_EQUAL(0xFE000203, footer->size_x);
     }
 
@@ -359,7 +359,7 @@ SUITE(MallocInternals)
 
         update_chunk(chunk, 512, 12, 1);
 
-        CHECK_EQUAL(12, CHUNK_IDX(chunk->size_x[0]));
-        CHECK_EQUAL(512, CHUNK_SIZE(chunk->size_x[0]));
+        CHECK_EQUAL(12, CHUNK_IDX(chunk->size_x));
+        CHECK_EQUAL(512, CHUNK_SIZE(chunk->size_x));
     }
 }
