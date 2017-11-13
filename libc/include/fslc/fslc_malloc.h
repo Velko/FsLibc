@@ -62,7 +62,7 @@ struct chunk_footer_navnext_t
 /* Struct for easy navigation to preceding footer */
 struct chunk_header_navprev_t
 {
-    struct chunk_footer_t[0] prev_footer;
+    struct chunk_footer_t prev_footer[0];
     struct chunk_header_t header;
 };
 
