@@ -237,6 +237,9 @@ This will compile the library and then install it at location */home/devel/fslib
 to adjust it for your needs). Note that we are not even trying to build tests here. Most likely they
 will not compile, and even if they did they would not run, as host and target platforms differ.
 
+Note: that if you receive an error about missing stdint.h while using a freestanding compiler, you
+may need to append `-ffreestanding` to the CFLAGS list. 
+
 [cmake]: https://cmake.org/ "CMake"
 
 Development and tests
