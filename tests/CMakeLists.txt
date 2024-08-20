@@ -1,5 +1,6 @@
 file(GLOB tests_SRC *.cpp)
 
+set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -Wall -Wextra -fprofile-arcs -ftest-coverage -DALT_FSLC_NAMES")
 add_definitions(-std=c++11)
 
 find_package(PkgConfig)

@@ -16,9 +16,11 @@
 #define fslc_strncmp    strncmp
 #define fslc_strchr     strchr
 #define fslc_strstr     strstr
+#define fslc_strrstr    strrstr
 #define fslc_strpbrk    strpbrk
 #define fslc_strspn     strspn
 #define fslc_strtok_r   strtok_r
+#define fslc_strcat     strcat
 
 #endif /* ALT_FSLC_NAMES */
 
@@ -38,9 +40,11 @@ extern "C" {
     int fslc_strncmp(const char *str1, const char *str2, size_t num);
     char *fslc_strchr(const char *str, int c);
     char *fslc_strstr(const char *search_in, const char *search_for);
+    char *fslc_strrstr(const char *search_in, const char *search_for);
     char *fslc_strpbrk(const char *str, const char *delim);
     size_t fslc_strspn(const char *str, const char *delim);
     char *fslc_strtok_r(char *str, const char *delim, char **save_p);
+    char* fslc_strcat(char* destination, const char* source);
 
 #ifdef __cplusplus
 } /* extern "C" */
